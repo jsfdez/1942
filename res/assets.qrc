@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/asset">
+        <file>sea.png</file>
+    </qresource>
+</RCC>

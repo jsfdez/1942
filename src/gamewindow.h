@@ -15,8 +15,11 @@ public:
     explicit GameWindow(QWidget *parent = 0);
     ~GameWindow();
 
+private slots:
+    void on_actionNewGame_triggered();
+
 private:
-    Ui::GameWindow *ui;
+    QScopedPointer<Ui::GameWindow> m_ui;
 };
 
 #endif // GAMEWINDOW_H
