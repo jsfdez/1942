@@ -2,6 +2,7 @@
 #include "ui_gamewindow.h"
 
 #include <QDebug>
+#include <QTimer>
 #include <QString>
 
 #include "gamescene.h"
@@ -13,7 +14,7 @@ GameWindow::GameWindow(QWidget *parent)
     , m_ui(new Ui::GameWindow)
 {
     m_ui->setupUi(this);
-    setFixedSize(minimumSize());
+    QTimer::singleShot(0, this, &GameWindow::on_actionNewGame_triggered);
 }
 
 GameWindow::~GameWindow()
@@ -26,5 +27,4 @@ void GameWindow::on_actionNewGame_triggered()
     auto scene = new GameScene(this);
     scene->setObjectName(k_currentGameObjectName);
     m_ui->graphicsView->setScene(scene);
-    m_ui->graphicsView->setSceneRect(scene->sceneRect());
 }
