@@ -13,7 +13,9 @@ private slots:
 
 private:
     QGraphicsPixmapItem *m_background = nullptr;
-    quint8 m_backgroundOffset;
+    QGraphicsPixmapItem *m_player = nullptr;
+    quint8 m_backgroundOffset = 0;
+    quint8 m_playerFrame = 0;
 };
 
 #endif // GAMESCENE_H

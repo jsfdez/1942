@@ -13,11 +13,15 @@ CONFIG(debug, debug|release) {
 SOURCES += \
     main.cpp \
     gamewindow.cpp \
-    gamescene.cpp
+    gamescene.cpp \
+    pixmapcache.cpp \
+    graphicsbackgrounditem.cpp
 
 HEADERS += \
     gamewindow.h \
-    gamescene.h
+    gamescene.h \
+    pixmapcache.h \
+    graphicsbackgrounditem.h
 
 FORMS += \
     gamewindow.ui
