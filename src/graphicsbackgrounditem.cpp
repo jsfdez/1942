@@ -2,6 +2,8 @@
 
 #include <QGraphicsScene>
 
+#include <QPainter>
+
 #include "pixmapcache.h"
 
 GraphicsBackgroundItem::GraphicsBackgroundItem(QGraphicsItem *parent)
@@ -15,8 +17,13 @@ QRectF GraphicsBackgroundItem::boundingRect() const
 }
 
 void GraphicsBackgroundItem::paint(QPainter *painter,
-    const QStyleOptionGraphicsItem *option, QWidget *widget)
+    const QStyleOptionGraphicsItem*, QWidget*)
 {
-
+    const auto background = PixmapCache::sea();
+    Q_ASSERT_X(!background.isNull(), "load", "Cannot load background image");
+    auto rect = scene()->sceneRect();
+    m_offset = (++m_offset) % background.height();
+    QPoint offset(0, m_offset);
+    painter->drawTiledPixmap(rect, background, offset);
 }
 
