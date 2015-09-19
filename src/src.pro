@@ -15,13 +15,15 @@ SOURCES += \
     gamewindow.cpp \
     gamescene.cpp \
     pixmapcache.cpp \
-    graphicsbackgrounditem.cpp
+    graphicsbackgrounditem.cpp \
+    graphicsplayeritem.cpp
 
 HEADERS += \
     gamewindow.h \
     gamescene.h \
     pixmapcache.h \
-    graphicsbackgrounditem.h
+    graphicsbackgrounditem.h \
+    graphicsplayeritem.h
 
 FORMS += \
     gamewindow.ui

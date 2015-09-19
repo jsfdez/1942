@@ -3,6 +3,8 @@
 
 #include <QGraphicsScene>
 
+class GraphicsPlayerItem;
+
 class GameScene : public QGraphicsScene
 {
 public:
@@ -12,11 +14,8 @@ private slots:
     void update();
 
 private:
-//    QGraphicsPixmapItem *m_background = nullptr;
-//    QGraphicsItem *m_background = nullptr;
-    QGraphicsPixmapItem *m_player = nullptr;
-    quint8 m_backgroundOffset = 0;
-    quint8 m_playerFrame = 0;
+    GraphicsPlayerItem *m_player = nullptr;
+    int m_phase = -1;
 };
 
 #endif // GAMESCENE_H

@@ -7,16 +7,25 @@
 #include <QGraphicsPixmapItem>
 
 #include "pixmapcache.h"
+#include "graphicsplayeritem.h"
 #include "graphicsbackgrounditem.h"
 
 GameScene::GameScene(QObject *parent)
     : QGraphicsScene(0, 0, 600, 800, parent)
+    , m_player(new GraphicsPlayerItem)
 {
     addItem(new GraphicsBackgroundItem);
+    {
+        const auto playerSize = m_player->boundingRect().size();
+        QPointF pos{
+            sceneRect().width() / 2 - playerSize.width() / 2,
+            sceneRect().height() - playerSize.height(),
+        };
+        m_player->setPos(pos);
+    }
+    addItem(m_player);
 
-    const auto playerPixmap = PixmapCache::player();
-    m_player = addPixmap(playerPixmap.copy(0, 0, playerPixmap.width() / 4,
-        playerPixmap.height()));
+    setFocusItem(m_player);
 
     auto timer = new QTimer(this);
     timer->setInterval(1000 / 30); // 30 fps
@@ -29,12 +38,8 @@ void GameScene::update()
 {
     for(auto item : items())
     {
+        m_phase = std::max(++m_phase, 0);
+        item->advance(m_phase);
         item->update();
     }
-
-    const auto playerPixmap = PixmapCache::player();
-    m_playerFrame = (++m_playerFrame) % 3;
-    m_player->setPixmap(playerPixmap.copy(
-        m_playerFrame * playerPixmap.width() / 4, 0,
-        playerPixmap.width() / 4, playerPixmap.height()));
 }
