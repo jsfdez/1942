@@ -6,6 +6,7 @@
 
 const auto k_seaAsset = QStringLiteral(":/asset/sea.png");
 const auto k_playerAsset = QStringLiteral(":/asset/player.png");
+const auto k_bulletAsset = QStringLiteral(":/asset/bullet.png");
 
 QPixmap PixmapCache::sea()
 {
@@ -15,6 +16,11 @@ QPixmap PixmapCache::sea()
 QPixmap PixmapCache::player()
 {
     return pixmap(k_playerAsset);
+}
+
+QPixmap PixmapCache::bullet()
+{
+    return pixmap(k_bulletAsset);
 }
 
 QPixmap PixmapCache::pixmap(const QString &path)

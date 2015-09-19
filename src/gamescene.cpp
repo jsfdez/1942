@@ -7,12 +7,13 @@
 #include <QGraphicsPixmapItem>
 
 #include "pixmapcache.h"
-#include "graphicsplayeritem.h"
+#include "graphicsbulletitem.h"
+#include "graphicsplayerobject.h"
 #include "graphicsbackgrounditem.h"
 
 GameScene::GameScene(QObject *parent)
     : QGraphicsScene(0, 0, 600, 800, parent)
-    , m_player(new GraphicsPlayerItem)
+    , m_player(new GraphicsPlayerObject)
 {
     addItem(new GraphicsBackgroundItem);
     {
@@ -24,6 +25,8 @@ GameScene::GameScene(QObject *parent)
         m_player->setPos(pos);
     }
     addItem(m_player);
+    connect(m_player, &GraphicsPlayerObject::cannonTriggered, this,
+        &GameScene::planeShot);
 
     setFocusItem(m_player);
 
@@ -36,10 +39,20 @@ GameScene::GameScene(QObject *parent)
 
 void GameScene::update()
 {
+    qDebug() << "Total items:" << items().size();
     for(auto item : items())
     {
         m_phase = std::max(++m_phase, 0);
         item->advance(m_phase);
         item->update();
+    }
+}
+
+void GameScene::planeShot(QVector<QPair<QPoint, QVector2D>> bullets)
+{
+    for(auto& pair : bullets)
+    {
+        auto bullet = new GraphicsBulletItem(pair.first, pair.second);
+        addItem(bullet);
     }
 }

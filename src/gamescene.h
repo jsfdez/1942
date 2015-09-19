@@ -3,7 +3,7 @@
 
 #include <QGraphicsScene>
 
-class GraphicsPlayerItem;
+class GraphicsPlayerObject;
 
 class GameScene : public QGraphicsScene
 {
@@ -12,9 +12,10 @@ public:
 
 private slots:
     void update();
+    void planeShot(QVector<QPair<QPoint, QVector2D>> bullets);
 
 private:
-    GraphicsPlayerItem *m_player = nullptr;
+    GraphicsPlayerObject *m_player = nullptr;
     int m_phase = -1;
 };
 

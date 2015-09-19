@@ -2,12 +2,16 @@
 #define GRAPHICSPLAYERITEM_H
 
 #include <QSet>
+#include <QTimer>
+#include <QVector2D>
 #include <QGraphicsItem>
 
-class GraphicsPlayerItem : public QGraphicsItem
+class GraphicsPlayerObject : public QGraphicsObject
 {
+    Q_OBJECT
+
 public:
-    GraphicsPlayerItem(QGraphicsItem *parent = nullptr);
+    GraphicsPlayerObject(QGraphicsItem *parent = nullptr);
 
     virtual QRectF boundingRect() const override;
     virtual void paint(QPainter *painter,
@@ -15,13 +19,21 @@ public:
 
     virtual void advance(int phase) override;
 
-private:
-    const quint8 k_speed = 5;
-    quint8 m_frame = 0;
-    QSet<std::underlying_type<Qt::Key>::type> m_keys;
+signals:
+    void cannonTriggered(QVector<QPair<QPoint, QVector2D>> bullets);
 
+protected:
+    void trigger();
+
+private:
     virtual void keyPressEvent(QKeyEvent *event);
     virtual void keyReleaseEvent(QKeyEvent *event);
+
+    const quint8 k_speed = 5;
+    quint8 m_frame = 0;
+    quint8 m_cannonCount = 2;
+    QSet<std::underlying_type<Qt::Key>::type> m_keys;
+    QTimer m_triggerTimer;
 };
 
 #endif // GRAPHICSPLAYERITEM_H

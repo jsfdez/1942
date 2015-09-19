@@ -1,4 +1,4 @@
-#include "graphicsplayeritem.h"
+#include "graphicsplayerobject.h"
 
 #include <QDebug>
 #include <QPainter>
@@ -8,23 +8,25 @@
 
 #include "pixmapcache.h"
 
-GraphicsPlayerItem::GraphicsPlayerItem(QGraphicsItem *parent)
-    : QGraphicsItem(parent)
+GraphicsPlayerObject::GraphicsPlayerObject(QGraphicsItem *parent)
+    : QGraphicsObject(parent)
 {
     auto effect = new QGraphicsDropShadowEffect;
     effect->setColor(Qt::black);
     setGraphicsEffect(effect);
-    setFlag(GraphicsPlayerItem::ItemIsFocusable, true);
+    setFlag(GraphicsPlayerObject::ItemIsFocusable, true);
+    m_triggerTimer.setSingleShot(true);
+    m_triggerTimer.setInterval(100);
 }
 
-QRectF GraphicsPlayerItem::boundingRect() const
+QRectF GraphicsPlayerObject::boundingRect() const
 {
     auto rect = PixmapCache::player().rect();
     rect.setWidth(rect.width() / 4);
     return rect;
 }
 
-void GraphicsPlayerItem::paint(QPainter *painter,
+void GraphicsPlayerObject::paint(QPainter *painter,
     const QStyleOptionGraphicsItem*, QWidget*)
 {
     const auto asset = PixmapCache::player();
@@ -33,7 +35,7 @@ void GraphicsPlayerItem::paint(QPainter *painter,
     painter->drawPixmap({0, 0}, asset, source);
 }
 
-void GraphicsPlayerItem::advance(int phase)
+void GraphicsPlayerObject::advance(int phase)
 {
     auto p = pos();
     const auto sceneRect = scene()->sceneRect();
@@ -64,7 +66,30 @@ void GraphicsPlayerItem::advance(int phase)
     m_frame = phase % 3;
 }
 
-void GraphicsPlayerItem::keyPressEvent(QKeyEvent *event)
+void GraphicsPlayerObject::trigger()
+{
+    if (m_triggerTimer.isActive())
+        return;
+
+    m_triggerTimer.start();
+    QVector<QPair<QPoint, QVector2D>> bullets(m_cannonCount);
+    switch(m_cannonCount)
+    {
+    case 2:
+        bullets[0].first = QPoint(pos().x() + boundingRect().width() / 4,
+            pos().y() - 5);
+        bullets[0].second = QVector2D(0.f, -1.f);
+        bullets[1].first = QPoint(pos().x() + boundingRect().width() * 3 / 4,
+            pos().y() - 5);
+        bullets[1].second = QVector2D(0.f, -1.f);
+        break;
+    default:
+        qFatal("Invalid cannon count");
+    }
+    emit cannonTriggered(bullets);
+}
+
+void GraphicsPlayerObject::keyPressEvent(QKeyEvent *event)
 {
     switch(event->key())
     {
@@ -73,6 +98,10 @@ void GraphicsPlayerItem::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Up:
     case Qt::Key_Down:
         m_keys.insert(event->key());
+        break;
+    case Qt::Key_Space:
+        trigger();
+        event->accept();
         break;
     case Qt::Key_S:
         graphicsEffect()->setEnabled(!graphicsEffect()->isEnabled());
@@ -83,7 +112,7 @@ void GraphicsPlayerItem::keyPressEvent(QKeyEvent *event)
     }
 }
 
-void GraphicsPlayerItem::keyReleaseEvent(QKeyEvent *event)
+void GraphicsPlayerObject::keyReleaseEvent(QKeyEvent *event)
 {
     switch(event->key())
     {
@@ -98,4 +127,3 @@ void GraphicsPlayerItem::keyReleaseEvent(QKeyEvent *event)
         event->ignore();
     }
 }
-
