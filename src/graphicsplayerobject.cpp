@@ -12,7 +12,7 @@ GraphicsPlayerObject::GraphicsPlayerObject(QGraphicsItem *parent)
     : QGraphicsObject(parent)
 {
     auto effect = new QGraphicsDropShadowEffect;
-    effect->setColor(Qt::black);
+    effect->setColor(QColor(0, 0, 0, 128));
     setGraphicsEffect(effect);
     setFlag(GraphicsPlayerObject::ItemIsFocusable, true);
     m_triggerTimer.setSingleShot(false);
@@ -32,6 +32,7 @@ void GraphicsPlayerObject::paint(QPainter *painter,
     const auto asset = PixmapCache::player();
     const QRect source(m_frame * asset.width() / 4, 0, asset.width() / 4,
         asset.height());
+    qDebug() << source;
     painter->drawPixmap({0, 0}, asset, source);
 }
 
@@ -65,7 +66,9 @@ void GraphicsPlayerObject::advance(int phase)
     }
 
     setPos(p);
-    m_frame = phase % 3;
+
+    m_frame = ++m_frame % 3;
+    update();
 }
 
 void GraphicsPlayerObject::trigger()
