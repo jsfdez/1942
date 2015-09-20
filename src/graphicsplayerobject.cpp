@@ -15,7 +15,7 @@ GraphicsPlayerObject::GraphicsPlayerObject(QGraphicsItem *parent)
     effect->setColor(Qt::black);
     setGraphicsEffect(effect);
     setFlag(GraphicsPlayerObject::ItemIsFocusable, true);
-    m_triggerTimer.setSingleShot(true);
+    m_triggerTimer.setSingleShot(false);
     m_triggerTimer.setInterval(100);
 }
 
@@ -71,7 +71,6 @@ void GraphicsPlayerObject::trigger()
     if (m_triggerTimer.isActive())
         return;
 
-    m_triggerTimer.start();
     QVector<QPair<QPoint, QVector2D>> bullets(m_cannonCount);
     switch(m_cannonCount)
     {
@@ -101,6 +100,7 @@ void GraphicsPlayerObject::keyPressEvent(QKeyEvent *event)
         break;
     case Qt::Key_Space:
         trigger();
+        m_triggerTimer.start();
         event->accept();
         break;
     case Qt::Key_S:
@@ -123,6 +123,9 @@ void GraphicsPlayerObject::keyReleaseEvent(QKeyEvent *event)
         m_keys.remove(event->key());
         event->accept();
         break;
+    case Qt::Key_Space:
+        m_triggerTimer.stop();
+        event->accept();
     default:
         event->ignore();
     }
