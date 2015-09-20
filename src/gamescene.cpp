@@ -39,13 +39,19 @@ GameScene::GameScene(QObject *parent)
 
 void GameScene::update()
 {
-    qDebug() << "Total items:" << items().size();
+    Q_ASSERT(sender() == findChild<QTimer*>());
+
     for(auto item : items())
     {
-        m_phase = std::max(++m_phase, 0);
-        item->advance(m_phase);
-        item->update();
+        const auto rect = item->boundingRect().translated(item->pos());
+        if(!sceneRect().contains(rect))
+        {
+            removeItem(item);
+            delete item;
+        }
     }
+    QGraphicsScene::advance();
+    QGraphicsScene::update();
 }
 
 void GameScene::planeShot(QVector<QPair<QPoint, QVector2D>> bullets)

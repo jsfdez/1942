@@ -29,6 +29,8 @@ void GraphicsBackgroundItem::paint(QPainter *painter,
 
 void GraphicsBackgroundItem::advance(int phase)
 {
-    m_offset = phase % PixmapCache::sea().height();
+    if (phase == 1) return;
+
+    m_offset = ++m_offset % PixmapCache::sea().height();
 }
 

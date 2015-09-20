@@ -1,6 +1,9 @@
 #include "graphicsbulletitem.h"
 
+#include <QDebug>
 #include <QPainter>
+#include <QGraphicsScene>
+#include <QStyleOptionGraphicsItem>
 
 #include "pixmapcache.h"
 
@@ -19,14 +22,19 @@ QRectF GraphicsBulletItem::boundingRect() const
 }
 
 void GraphicsBulletItem::paint(QPainter *painter,
-    const QStyleOptionGraphicsItem*, QWidget*)
+    const QStyleOptionGraphicsItem *option, QWidget*)
 {
-    auto pixmap = PixmapCache::bullet();
-    painter->drawPixmap(0, 0, pixmap);
+    if (scene()->sceneRect().contains(option->exposedRect.translated(pos())))
+    {
+        auto pixmap = PixmapCache::bullet();
+        painter->drawPixmap(0, 0, pixmap);
+    }
 }
 
-void GraphicsBulletItem::advance(int)
+void GraphicsBulletItem::advance(int phase)
 {
+    if(phase == 1) return;
+
     auto p = pos();
     p += m_direction.toPoint() * 20;
     setPos(p);

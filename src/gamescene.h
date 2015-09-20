@@ -16,7 +16,6 @@ private slots:
 
 private:
     GraphicsPlayerObject *m_player = nullptr;
-    int m_phase = -1;
 };
 
 #endif // GAMESCENE_H

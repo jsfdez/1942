@@ -37,6 +37,8 @@ void GraphicsPlayerObject::paint(QPainter *painter,
 
 void GraphicsPlayerObject::advance(int phase)
 {
+    if (phase == 1) return;
+
     auto p = pos();
     const auto sceneRect = scene()->sceneRect();
 
