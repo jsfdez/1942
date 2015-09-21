@@ -42,17 +42,39 @@ void GameScene::update()
 {
     Q_ASSERT(sender() == findChild<QTimer*>());
 
+    QList<QGraphicsItem*> planes;
+    for(auto item : items()) // find planes
+        if(item->type() == PlayerType || item->type() == EnemyType)
+            planes.append(item);
+
     for(auto item : items())
     {
-        const auto rect = item->boundingRect().translated(item->pos());
-        if(!sceneRect().contains(rect))
+        if(item->type() == BulletType)
         {
-            removeItem(item);
-            delete item;
+            const auto rect = item->boundingRect().translated(item->pos());
+            if(!sceneRect().contains(rect))
+                delete item;
+            else
+            {
+                bool impacted = false;
+                for(auto it = planes.begin(); it != planes.end() && !impacted;
+                    ++it)
+                {
+                    const auto planeRect = (*it)->boundingRect()
+                            .translated((*it)->pos());
+                    auto plane = qgraphicsitem_cast<GraphicsPlayerObject*>(*it);
+                    if(plane->status() == GraphicsPlayerObject::Status::Alive
+                       && planeRect.contains(rect))
+                    {
+                        plane->impact(100);
+                        delete item;
+                    }
+                }
+            }
         }
     }
+
     QGraphicsScene::advance();
-    QGraphicsScene::update();
 }
 
 void GameScene::planeShot(QVector<QPair<QPoint, QVector2D>> bullets)

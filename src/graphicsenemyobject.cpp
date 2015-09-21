@@ -29,10 +29,29 @@ QRectF GraphicsEnemyObject::boundingRect() const
 void GraphicsEnemyObject::paint(QPainter* painter,
 	const QStyleOptionGraphicsItem*, QWidget*)
 {
-    const auto asset = m_pixmap();
-	const QRect source(m_frame * asset.width() / 4, 0, asset.width() / 4,
-		asset.height());
-	painter->drawPixmap({0, 0}, asset, source);
+    switch(status())
+    {
+    case Status::Alive:
+    {
+        const auto asset = m_pixmap();
+        const QRect source(m_frame * asset.width() / 4, 0, asset.width() / 4,
+                           asset.height());
+        painter->drawPixmap({0, 0}, asset, source);
+        break;
+    }
+    case Status::Death:
+    {
+        const auto asset = PixmapCache::explosion();
+        const QRect source(m_frame * asset.width() / 6, 0, asset.width() / 6,
+                           asset.height());
+        painter->drawPixmap(boundingRect(), asset, source);
+        break;
+    }
+    }
+//    const auto asset = m_pixmap();
+//	const QRect source(m_frame * asset.width() / 4, 0, asset.width() / 4,
+//		asset.height());
+//	painter->drawPixmap({0, 0}, asset, source);
 }
 
 void GraphicsEnemyObject::advance(int phase)

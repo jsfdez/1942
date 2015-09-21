@@ -11,7 +11,15 @@ class GraphicsPlayerObject : public QGraphicsObject
     Q_OBJECT
 
 public:
+    enum class Status
+    {
+        Alive,
+        Death,
+    };
+
     GraphicsPlayerObject(QGraphicsItem *parent = nullptr);
+
+    Status status() const;
 
     virtual QRectF boundingRect() const override;
     virtual void paint(QPainter *painter,
@@ -20,8 +28,12 @@ public:
     virtual void advance(int phase) override;
     virtual int type() const override;
 
+public slots:
+    void impact(quint32 damage);
+
 signals:
     void cannonTriggered(QVector<QPair<QPoint, QVector2D>> bullets);
+    void exploded();
 
 protected:
     void trigger();
@@ -36,6 +48,8 @@ private:
     quint8 m_cannonCount = 2;
     QSet<std::underlying_type<Qt::Key>::type> m_keys;
     QTimer m_triggerTimer;
+    Status m_status = Status::Alive;
+    qint32 m_health = 300;
 };
 
 #endif // GRAPHICSPLAYERITEM_H

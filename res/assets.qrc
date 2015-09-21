@@ -6,5 +6,6 @@
         <file>enemy.png</file>
         <file>boss.png</file>
         <file>shooting-enemy.png</file>
+        <file>explosion.png</file>
     </qresource>
 </RCC>

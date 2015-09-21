@@ -20,6 +20,11 @@ GraphicsPlayerObject::GraphicsPlayerObject(QGraphicsItem *parent)
     m_triggerTimer.setInterval(100);
 }
 
+GraphicsPlayerObject::Status GraphicsPlayerObject::status() const
+{
+    return m_status;
+}
+
 QRectF GraphicsPlayerObject::boundingRect() const
 {
     auto rect = PixmapCache::player().rect();
@@ -30,17 +35,40 @@ QRectF GraphicsPlayerObject::boundingRect() const
 void GraphicsPlayerObject::paint(QPainter *painter,
     const QStyleOptionGraphicsItem*, QWidget*)
 {
-    const auto asset = PixmapCache::player();
-    const QRect source(m_frame * asset.width() / 4, 0, asset.width() / 4,
-        asset.height());
-    painter->drawPixmap({0, 0}, asset, source);
+    switch(m_status)
+    {
+    case Status::Alive:
+    {
+        const auto asset = PixmapCache::player();
+        const QRect source(m_frame * asset.width() / 4, 0, asset.width() / 4,
+                           asset.height());
+        painter->drawPixmap({0, 0}, asset, source);
+        break;
+    }
+    case Status::Death:
+    {
+        const auto asset = PixmapCache::explosion();
+        const QRect source(m_frame * asset.width() / 6, 0, asset.width() / 6,
+                           asset.height());
+        painter->drawPixmap(boundingRect(), asset, source);
+        break;
+    }
+    }
 }
 
 void GraphicsPlayerObject::advance(int phase)
 {
 	if(phase == 1)
 	{
-		m_frame = ++m_frame % 3;
+        if (m_status == Status::Alive)
+            m_frame = ++m_frame % 3;
+        else if (m_frame == 6)
+        {
+            emit exploded();
+            deleteLater();
+        }
+        else
+            ++m_frame;
 		update();
 	}
 	else
@@ -77,6 +105,17 @@ void GraphicsPlayerObject::advance(int phase)
 int GraphicsPlayerObject::type() const
 {
     return GameScene::PlayerType;
+}
+
+void GraphicsPlayerObject::impact(quint32 damage)
+{
+    m_health = qMax(0u, m_health - damage);
+    if(!m_health)
+    {
+        m_status = Status::Death;
+        graphicsEffect()->setEnabled(false);
+        m_frame = 0;
+    }
 }
 
 void GraphicsPlayerObject::trigger()

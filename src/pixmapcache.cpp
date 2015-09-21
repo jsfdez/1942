@@ -10,6 +10,7 @@ const auto k_enemyAsset = QStringLiteral(":/asset/enemy.png");
 const auto k_whiteEnemyAsset = QStringLiteral(":/asset/shooting-enemy.png");
 const auto k_bossEnemyAsset = QStringLiteral(":/asset/boss.png");
 const auto k_bulletAsset = QStringLiteral(":/asset/bullet.png");
+const auto k_explosion = QStringLiteral(":/asset/explosion.png");
 
 QPixmap PixmapCache::sea()
 {
@@ -39,6 +40,11 @@ QPixmap PixmapCache::bossEnemy()
 QPixmap PixmapCache::bullet()
 {
     return pixmap(k_bulletAsset);
+}
+
+QPixmap PixmapCache::explosion()
+{
+    return pixmap(k_explosion);
 }
 
 QPixmap PixmapCache::pixmap(const QString &path)

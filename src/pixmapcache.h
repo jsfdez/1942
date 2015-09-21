@@ -12,6 +12,7 @@ struct PixmapCache
     static QPixmap whiteEnemy();
     static QPixmap bossEnemy();
     static QPixmap bullet();
+    static QPixmap explosion();
 
 private:
     static QPixmap pixmap(const QString& path);
