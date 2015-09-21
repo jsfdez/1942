@@ -33,9 +33,10 @@ void GraphicsBulletItem::paint(QPainter *painter,
 
 void GraphicsBulletItem::advance(int phase)
 {
-    if(phase == 1) return;
-
-    auto p = pos();
-    p += m_direction.toPoint() * 20;
-    setPos(p);
+	if(phase == 1)
+	{
+		auto p = pos();
+		p += m_direction.toPoint() * 20;
+		setPos(p);
+	}
 }

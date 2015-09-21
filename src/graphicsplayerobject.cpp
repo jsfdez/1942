@@ -37,37 +37,40 @@ void GraphicsPlayerObject::paint(QPainter *painter,
 
 void GraphicsPlayerObject::advance(int phase)
 {
-    if (phase == 1) return;
+	if(phase == 1)
+	{
+		m_frame = ++m_frame % 3;
+		update();
+	}
+	else
+	{
+		auto p = pos();
+		const auto sceneRect = scene()->sceneRect();
 
-    auto p = pos();
-    const auto sceneRect = scene()->sceneRect();
+		// Horizontal movement
+		if (m_keys.contains(Qt::Key_Left) && m_keys.contains(Qt::Key_Right));
+		else if (m_keys.contains(Qt::Key_Left))
+			p.setX(qMax(p.x() - k_speed, sceneRect.x()));
+		else if (m_keys.contains(Qt::Key_Right))
+		{
+			const auto right = sceneRect.x() + sceneRect.width()
+			- boundingRect().width();
+			p.setX(qMin(p.x() + k_speed, right));
+		}
 
-    // Horizontal movement
-    if (m_keys.contains(Qt::Key_Left) && m_keys.contains(Qt::Key_Right));
-    else if (m_keys.contains(Qt::Key_Left))
-        p.setX(qMax(p.x() - k_speed, sceneRect.x()));
-    else if (m_keys.contains(Qt::Key_Right))
-    {
-        const auto right = sceneRect.x() + sceneRect.width()
-            - boundingRect().width();
-        p.setX(qMin(p.x() + k_speed, right));
-    }
+		// Vertical movement
+		if (m_keys.contains(Qt::Key_Up) && m_keys.contains(Qt::Key_Down));
+		else if (m_keys.contains(Qt::Key_Up))
+			p.setY(qMax(p.y() - k_speed, sceneRect.y()));
+		else if (m_keys.contains(Qt::Key_Down))
+		{
+			const auto bottom = sceneRect.y() + sceneRect.height()
+			- boundingRect().height();
+			p.setY(qMin(p.y() + k_speed, bottom));
+		}
 
-    // Vertical movement
-    if (m_keys.contains(Qt::Key_Up) && m_keys.contains(Qt::Key_Down));
-    else if (m_keys.contains(Qt::Key_Up))
-        p.setY(qMax(p.y() - k_speed, sceneRect.y()));
-    else if (m_keys.contains(Qt::Key_Down))
-    {
-        const auto bottom = sceneRect.y() + sceneRect.height()
-            - boundingRect().height();
-        p.setY(qMin(p.y() + k_speed, bottom));
-    }
-
-    setPos(p);
-
-    m_frame = ++m_frame % 3;
-    update();
+		setPos(p);
+	}
 }
 
 void GraphicsPlayerObject::trigger()
