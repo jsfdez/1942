@@ -23,6 +23,7 @@ public:
 	virtual void paint(QPainter* painter,
 		const QStyleOptionGraphicsItem* option, QWidget* widget);
 	virtual void advance(int phase);
+    virtual int type() const override;
 
 private:
 	virtual void keyPressEvent(QKeyEvent *event);

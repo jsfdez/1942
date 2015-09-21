@@ -18,6 +18,7 @@ public:
         const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
     virtual void advance(int phase) override;
+    virtual int type() const override;
 
 signals:
     void cannonTriggered(QVector<QPair<QPoint, QVector2D>> bullets);

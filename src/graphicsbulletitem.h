@@ -14,6 +14,7 @@ public:
     virtual void paint(QPainter *painter,
         const QStyleOptionGraphicsItem *option, QWidget *widget) override;
     virtual void advance(int phase) override;
+    virtual int type() const override;
 
 private:
     QVector2D m_direction;

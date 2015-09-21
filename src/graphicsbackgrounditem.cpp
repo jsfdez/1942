@@ -5,6 +5,7 @@
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 
+#include "gamescene.h"
 #include "pixmapcache.h"
 
 GraphicsBackgroundItem::GraphicsBackgroundItem(QGraphicsItem *parent)
@@ -30,6 +31,10 @@ void GraphicsBackgroundItem::paint(QPainter *painter,
 void GraphicsBackgroundItem::advance(int phase)
 {
 	if(phase == 0)
-		m_offset = ++m_offset % PixmapCache::sea().height();
+        m_offset = ++m_offset % PixmapCache::sea().height();
 }
 
+int GraphicsBackgroundItem::type() const
+{
+    return GameScene::BackgroundType;
+}

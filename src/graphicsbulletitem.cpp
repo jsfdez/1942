@@ -5,6 +5,7 @@
 #include <QGraphicsScene>
 #include <QStyleOptionGraphicsItem>
 
+#include "gamescene.h"
 #include "pixmapcache.h"
 
 GraphicsBulletItem::GraphicsBulletItem(const QPoint &pos,
@@ -38,5 +39,10 @@ void GraphicsBulletItem::advance(int phase)
 		auto p = pos();
 		p += m_direction.toPoint() * 20;
 		setPos(p);
-	}
+    }
+}
+
+int GraphicsBulletItem::type() const
+{
+    return GameScene::BulletType;
 }

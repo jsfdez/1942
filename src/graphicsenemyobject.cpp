@@ -3,6 +3,7 @@
 #include <QPainter>
 #include <QKeyEvent>
 
+#include "gamescene.h"
 #include "pixmapcache.h"
 
 GraphicsEnemyObject::GraphicsEnemyObject(EnemyType type, QGraphicsItem* parent)
@@ -37,7 +38,12 @@ void GraphicsEnemyObject::paint(QPainter* painter,
 void GraphicsEnemyObject::advance(int phase)
 {
 	if(phase == 1)
-		GraphicsPlayerObject::advance(phase);
+        GraphicsPlayerObject::advance(phase);
+}
+
+int GraphicsEnemyObject::type() const
+{
+    return GameScene::EnemyType;
 }
 
 void GraphicsEnemyObject::keyPressEvent(QKeyEvent* event)

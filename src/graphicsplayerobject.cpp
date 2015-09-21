@@ -6,6 +6,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsDropShadowEffect>
 
+#include "gamescene.h"
 #include "pixmapcache.h"
 
 GraphicsPlayerObject::GraphicsPlayerObject(QGraphicsItem *parent)
@@ -70,7 +71,12 @@ void GraphicsPlayerObject::advance(int phase)
 		}
 
 		setPos(p);
-	}
+    }
+}
+
+int GraphicsPlayerObject::type() const
+{
+    return GameScene::PlayerType;
 }
 
 void GraphicsPlayerObject::trigger()

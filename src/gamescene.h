@@ -8,6 +8,14 @@ class GraphicsPlayerObject;
 class GameScene : public QGraphicsScene
 {
 public:
+    enum
+    {
+        PlayerType = Qt::UserRole + 1,
+        EnemyType,
+        BulletType,
+        BackgroundType,
+    };
+
     GameScene(QObject *parent = 0);
 
 private slots:

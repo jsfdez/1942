@@ -34,10 +34,8 @@ GameScene::GameScene(QObject *parent)
     setFocusItem(m_player);
 
     auto timer = new QTimer(this);
-    timer->setInterval(1000 / 30); // 30 fps
-    timer->setSingleShot(false);
     connect(timer, &QTimer::timeout, this, &GameScene::update);
-    timer->start();
+    timer->start(1000 / 30);
 }
 
 void GameScene::update()
