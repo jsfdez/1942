@@ -8,6 +8,7 @@
 
 #include "pixmapcache.h"
 #include "graphicsbulletitem.h"
+#include "graphicsenemyobject.h"
 #include "graphicsplayerobject.h"
 #include "graphicsbackgrounditem.h"
 
@@ -27,6 +28,8 @@ GameScene::GameScene(QObject *parent)
     addItem(m_player);
     connect(m_player, &GraphicsPlayerObject::cannonTriggered, this,
         &GameScene::planeShot);
+
+	addItem(new GraphicsEnemyObject);
 
     setFocusItem(m_player);
 

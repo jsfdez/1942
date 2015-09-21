@@ -25,12 +25,13 @@ signals:
 protected:
     void trigger();
 
+	quint8 m_frame = 0;
+
 private:
     virtual void keyPressEvent(QKeyEvent *event);
     virtual void keyReleaseEvent(QKeyEvent *event);
 
     const quint8 k_speed = 5;
-    quint8 m_frame = 0;
     quint8 m_cannonCount = 2;
     QSet<std::underlying_type<Qt::Key>::type> m_keys;
     QTimer m_triggerTimer;

@@ -17,7 +17,8 @@ SOURCES += \
     pixmapcache.cpp \
     graphicsbackgrounditem.cpp \
     graphicsbulletitem.cpp \
-    graphicsplayerobject.cpp
+    graphicsplayerobject.cpp \
+    graphicsenemyobject.cpp
 
 HEADERS += \
     gamewindow.h \
@@ -25,7 +26,8 @@ HEADERS += \
     pixmapcache.h \
     graphicsbackgrounditem.h \
     graphicsbulletitem.h \
-    graphicsplayerobject.h
+    graphicsplayerobject.h \
+    graphicsenemyobject.h
 
 FORMS += \
     gamewindow.ui
