@@ -32,7 +32,6 @@ void GraphicsPlayerObject::paint(QPainter *painter,
     const auto asset = PixmapCache::player();
     const QRect source(m_frame * asset.width() / 4, 0, asset.width() / 4,
         asset.height());
-    qDebug() << source;
     painter->drawPixmap({0, 0}, asset, source);
 }
 
