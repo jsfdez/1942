@@ -29,7 +29,7 @@ GameScene::GameScene(QObject *parent)
     connect(m_player, &GraphicsPlayerObject::cannonTriggered, this,
         &GameScene::planeShot);
 
-	addItem(new GraphicsEnemyObject);
+    addItem(new GraphicsEnemyObject(GraphicsEnemyObject::EnemyType::Boss));
 
     setFocusItem(m_player);
 

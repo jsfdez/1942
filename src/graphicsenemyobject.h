@@ -1,6 +1,8 @@
 #ifndef GRAPHICSENEMYOBJECT_H
 #define GRAPHICSENEMYOBJECT_H
 
+#include <functional>
+
 #include "graphicsplayerobject.h"
 
 class GraphicsEnemyObject : public GraphicsPlayerObject
@@ -8,7 +10,14 @@ class GraphicsEnemyObject : public GraphicsPlayerObject
 	Q_OBJECT
 
 public:
-	GraphicsEnemyObject(QGraphicsItem *parent = nullptr);
+    enum class EnemyType : quint8
+    {
+        Green,
+        White,
+        Boss
+    };
+
+    GraphicsEnemyObject(EnemyType type, QGraphicsItem *parent = nullptr);
 
 	virtual QRectF boundingRect() const;
 	virtual void paint(QPainter* painter,
@@ -18,6 +27,8 @@ public:
 private:
 	virtual void keyPressEvent(QKeyEvent *event);
 	virtual void keyReleaseEvent(QKeyEvent *event);
+
+    std::function<QPixmap()> m_pixmap;
 };
 
 #endif // GRAPHICSENEMYOBJECT_H

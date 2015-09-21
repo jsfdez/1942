@@ -8,7 +8,9 @@ struct PixmapCache
 {
     static QPixmap sea();
     static QPixmap player();
-	static QPixmap enemy();
+	static QPixmap greenEnemy();
+    static QPixmap whiteEnemy();
+    static QPixmap bossEnemy();
     static QPixmap bullet();
 
 private:

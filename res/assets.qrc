@@ -4,5 +4,7 @@
         <file>player.png</file>
         <file>bullet.png</file>
         <file>enemy.png</file>
+        <file>boss.png</file>
+        <file>shooting-enemy.png</file>
     </qresource>
 </RCC>
