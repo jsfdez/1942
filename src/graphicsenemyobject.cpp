@@ -13,6 +13,7 @@ GraphicsEnemyObject::GraphicsEnemyObject(EnemyType type,
 , m_easingCurve(easingCurve)
 , m_inverted(inverted)
 {
+    setVisible(false);
     switch(type)
     {
     case EnemyType::Green: m_pixmap = &PixmapCache::greenEnemy; break;
@@ -60,14 +61,22 @@ void GraphicsEnemyObject::advance(int phase)
 	{
 		GraphicsPlayerObject::advance(phase);
 		m_time += 0.005f;
+        if(m_time > 1.0f)
+            deleteLater();
 	}
 	else
 	{
-		const auto rect = scene()->sceneRect();
-		auto x = m_easingCurve.valueForProgress(m_time) * rect.width();
-		if (m_inverted)
-			x = rect.width() - x;
-		setPos(x, m_time * rect.height());
+        if (!isVisible()) setVisible(true);
+
+        const auto width = scene()->sceneRect().width();
+        const auto height = scene()->sceneRect().height();
+        const auto planeWidth = boundingRect().width();
+        const auto planeHeight = boundingRect().height();
+        auto x = m_easingCurve.valueForProgress(m_time) * width
+            - planeWidth / 2;
+        if (m_inverted)
+            x = width - x;
+        setPos(x, m_time * (height + planeHeight));
 	}
 }
 

@@ -38,16 +38,19 @@ GameScene::GameScene(QObject *parent)
 	auto spawnEnemiesTyper = new QTimer(this);
 	connect(spawnEnemiesTyper, &QTimer::timeout, this,
 		&GameScene::spawnEnemies);
-	spawnEnemiesTyper->start(1000);
+    spawnEnemiesTyper->start(2000);
 }
 
 void GameScene::spawnEnemies()
 {
 	auto type = static_cast<QEasingCurve::Type>(qrand() % 41);
 	QEasingCurve curve(type);
-	bool inverted = qrand() % 2;
 	addItem(new GraphicsEnemyObject(GraphicsEnemyObject::EnemyType::Green,
-		curve, inverted));
+        curve, true));
+    auto deferredEnemy = new GraphicsEnemyObject(
+        GraphicsEnemyObject::EnemyType::Green, curve, false);
+    QTimer::singleShot(1000, std::bind(&GameScene::addItem, this,
+        deferredEnemy));
 }
 
 void GameScene::update()
@@ -79,7 +82,7 @@ void GameScene::update()
                        && planeRect.contains(rect))
                     {
                         plane->impact(100);
-                        delete item;
+                        plane->deleteLater();
                     }
                 }
             }

@@ -49,7 +49,7 @@ private:
     QSet<std::underlying_type<Qt::Key>::type> m_keys;
     QTimer m_triggerTimer;
     Status m_status = Status::Alive;
-    qint32 m_health = 300;
+    qint32 m_health = 200;
 };
 
 #endif // GRAPHICSPLAYERITEM_H
