@@ -4,102 +4,47 @@
 #include <QPainter>
 #include <QKeyEvent>
 #include <QGraphicsScene>
-#include <QGraphicsDropShadowEffect>
+#include <QGraphicsEffect>
 
 #include "gamescene.h"
 #include "pixmapcache.h"
 
 GraphicsPlayerObject::GraphicsPlayerObject(QGraphicsItem *parent)
-    : QGraphicsObject(parent)
+    : AbstractGraphicsPlaneObject(parent)
 {
-    auto effect = new QGraphicsDropShadowEffect;
-    effect->setColor(QColor(0, 0, 0, 128));
-    setGraphicsEffect(effect);
     setFlag(GraphicsPlayerObject::ItemIsFocusable, true);
     m_triggerTimer.setSingleShot(false);
     m_triggerTimer.setInterval(100);
 }
 
-GraphicsPlayerObject::Status GraphicsPlayerObject::status() const
+void GraphicsPlayerObject::move()
 {
-    return m_status;
-}
+    auto p = pos();
+    const auto sceneRect = scene()->sceneRect();
 
-QRectF GraphicsPlayerObject::boundingRect() const
-{
-    auto rect = PixmapCache::player().rect();
-    rect.setWidth(rect.width() / 4);
-    return rect;
-}
-
-void GraphicsPlayerObject::paint(QPainter *painter,
-    const QStyleOptionGraphicsItem*, QWidget*)
-{
-    switch(m_status)
+    // Horizontal movement
+    if (m_keys.contains(Qt::Key_Left) && m_keys.contains(Qt::Key_Right));
+    else if (m_keys.contains(Qt::Key_Left))
+        p.setX(qMax(p.x() - k_speed, sceneRect.x()));
+    else if (m_keys.contains(Qt::Key_Right))
     {
-    case Status::Alive:
+        const auto right = sceneRect.x() + sceneRect.width()
+        - boundingRect().width();
+        p.setX(qMin(p.x() + k_speed, right));
+    }
+
+    // Vertical movement
+    if (m_keys.contains(Qt::Key_Up) && m_keys.contains(Qt::Key_Down));
+    else if (m_keys.contains(Qt::Key_Up))
+        p.setY(qMax(p.y() - k_speed, sceneRect.y()));
+    else if (m_keys.contains(Qt::Key_Down))
     {
-        const auto asset = PixmapCache::player();
-        const QRect source(m_frame * asset.width() / 4, 0, asset.width() / 4,
-                           asset.height());
-        painter->drawPixmap({0, 0}, asset, source);
-        break;
+        const auto bottom = sceneRect.y() + sceneRect.height()
+        - boundingRect().height();
+        p.setY(qMin(p.y() + k_speed, bottom));
     }
-    case Status::Death:
-    {
-        const auto asset = PixmapCache::explosion();
-        const QRect source(m_frame * asset.width() / 6, 0, asset.width() / 6,
-                           asset.height());
-        painter->drawPixmap(boundingRect(), asset, source);
-        break;
-    }
-    }
-}
 
-void GraphicsPlayerObject::advance(int phase)
-{
-	if(phase == 1)
-	{
-        if (m_status == Status::Alive)
-            m_frame = ++m_frame % 3;
-        else if (m_frame == 6)
-        {
-            emit exploded();
-            deleteLater();
-        }
-        else
-            ++m_frame;
-		update();
-	}
-	else
-	{
-		auto p = pos();
-		const auto sceneRect = scene()->sceneRect();
-
-		// Horizontal movement
-		if (m_keys.contains(Qt::Key_Left) && m_keys.contains(Qt::Key_Right));
-		else if (m_keys.contains(Qt::Key_Left))
-			p.setX(qMax(p.x() - k_speed, sceneRect.x()));
-		else if (m_keys.contains(Qt::Key_Right))
-		{
-			const auto right = sceneRect.x() + sceneRect.width()
-			- boundingRect().width();
-			p.setX(qMin(p.x() + k_speed, right));
-		}
-
-		// Vertical movement
-		if (m_keys.contains(Qt::Key_Up) && m_keys.contains(Qt::Key_Down));
-		else if (m_keys.contains(Qt::Key_Up))
-			p.setY(qMax(p.y() - k_speed, sceneRect.y()));
-		else if (m_keys.contains(Qt::Key_Down))
-		{
-			const auto bottom = sceneRect.y() + sceneRect.height()
-			- boundingRect().height();
-			p.setY(qMin(p.y() + k_speed, bottom));
-		}
-
-		setPos(p);
-    }
+    setPos(p);
 }
 
 int GraphicsPlayerObject::type() const
@@ -107,37 +52,15 @@ int GraphicsPlayerObject::type() const
     return GameScene::PlayerType;
 }
 
-void GraphicsPlayerObject::impact(quint32 damage)
+QPixmap GraphicsPlayerObject::pixmap() const
 {
-    m_health = qMax(0u, m_health - damage);
-    if(!m_health)
-    {
-        m_status = Status::Death;
-        graphicsEffect()->setEnabled(false);
-        m_frame = 0;
-    }
+    return PixmapCache::player();
 }
 
 void GraphicsPlayerObject::trigger()
 {
-    if (m_triggerTimer.isActive())
-        return;
-
-    QVector<QPair<QPoint, QVector2D>> bullets(m_cannonCount);
-    switch(m_cannonCount)
-    {
-    case 2:
-        bullets[0].first = QPoint(pos().x() + boundingRect().width() / 4,
-            pos().y() - 5);
-        bullets[0].second = QVector2D(0.f, -1.f);
-        bullets[1].first = QPoint(pos().x() + boundingRect().width() * 3 / 4,
-            pos().y() - 5);
-        bullets[1].second = QVector2D(0.f, -1.f);
-        break;
-    default:
-        qFatal("Invalid cannon count");
-    }
-    emit cannonTriggered(bullets);
+    if (!m_triggerTimer.isActive())
+        AbstractGraphicsPlaneObject::trigger();
 }
 
 void GraphicsPlayerObject::keyPressEvent(QKeyEvent *event)

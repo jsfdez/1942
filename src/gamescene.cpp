@@ -82,7 +82,7 @@ void GameScene::update()
                        && planeRect.contains(rect))
                     {
                         plane->impact(100);
-                        plane->deleteLater();
+//                        plane->deleteLater();
                     }
                 }
             }

@@ -5,9 +5,9 @@
 
 #include <QEasingCurve>
 
-#include "graphicsplayerobject.h"
+#include "abstractgraphicsplaneobject.h"
 
-class GraphicsEnemyObject : public GraphicsPlayerObject
+class GraphicsEnemyObject : public AbstractGraphicsPlaneObject
 {
 	Q_OBJECT
 
@@ -22,15 +22,11 @@ public:
 	GraphicsEnemyObject(EnemyType type, QEasingCurve easingCurve, bool inverted,
 		QGraphicsItem *parent = nullptr);
 
-	virtual QRectF boundingRect() const;
-	virtual void paint(QPainter* painter,
-		const QStyleOptionGraphicsItem* option, QWidget* widget);
-	virtual void advance(int phase);
+    virtual void move() override;
     virtual int type() const override;
 
 private:
-	virtual void keyPressEvent(QKeyEvent *event);
-	virtual void keyReleaseEvent(QKeyEvent *event);
+    virtual QPixmap pixmap() const override;
 
     std::function<QPixmap()> m_pixmap;
     QEasingCurve m_curve;
