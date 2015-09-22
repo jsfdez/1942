@@ -18,6 +18,7 @@ public:
 
 private:
     QVector2D m_direction;
+	const quint32 k_speed = 25;
 };
 
 #endif // GRAPHICSBULLETITEM_H

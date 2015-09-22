@@ -35,7 +35,12 @@ GameScene::GameScene(QObject *parent)
 
     auto timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &GameScene::update);
-    timer->start(1000 / 30);
+	timer->start(1000 / 30);
+}
+
+void GameScene::spawnEnemies()
+{
+
 }
 
 void GameScene::update()

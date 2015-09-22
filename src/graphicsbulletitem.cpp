@@ -37,7 +37,7 @@ void GraphicsBulletItem::advance(int phase)
 	if(phase == 1)
 	{
 		auto p = pos();
-		p += m_direction.toPoint() * 20;
+		p += m_direction.toPoint() * static_cast<int>(k_speed);
 		setPos(p);
     }
 }

@@ -18,6 +18,9 @@ public:
 
     GameScene(QObject *parent = 0);
 
+public slots:
+	void spawnEnemies();
+
 private slots:
     void update();
     void planeShot(QVector<QPair<QPoint, QVector2D>> bullets);

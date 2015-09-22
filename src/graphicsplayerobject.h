@@ -44,7 +44,7 @@ private:
     virtual void keyPressEvent(QKeyEvent *event);
     virtual void keyReleaseEvent(QKeyEvent *event);
 
-    const quint8 k_speed = 5;
+	const quint8 k_speed = 10;
     quint8 m_cannonCount = 2;
     QSet<std::underlying_type<Qt::Key>::type> m_keys;
     QTimer m_triggerTimer;
