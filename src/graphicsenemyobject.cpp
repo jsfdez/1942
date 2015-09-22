@@ -10,7 +10,7 @@
 GraphicsEnemyObject::GraphicsEnemyObject(EnemyType type,
 	QEasingCurve easingCurve, bool inverted, QGraphicsItem* parent)
 : GraphicsPlayerObject(parent)
-, m_easingCurve(easingCurve)
+, m_curve(easingCurve)
 , m_inverted(inverted)
 {
     setVisible(false);
@@ -34,6 +34,9 @@ QRectF GraphicsEnemyObject::boundingRect() const
 void GraphicsEnemyObject::paint(QPainter* painter,
 	const QStyleOptionGraphicsItem*, QWidget*)
 {
+    painter->save();
+    const QRectF rect(mapFromScene(0.0f, 0.0f), scene()->sceneRect().size());
+    painter->setClipRect(rect);
     switch(status())
     {
     case Status::Alive:
@@ -53,6 +56,7 @@ void GraphicsEnemyObject::paint(QPainter* painter,
         break;
     }
     }
+    painter->restore();
 }
 
 void GraphicsEnemyObject::advance(int phase)
@@ -68,12 +72,11 @@ void GraphicsEnemyObject::advance(int phase)
 	{
         if (!isVisible()) setVisible(true);
 
-        const auto width = scene()->sceneRect().width();
         const auto height = scene()->sceneRect().height();
         const auto planeWidth = boundingRect().width();
+        const auto width = scene()->sceneRect().width() - planeWidth;
         const auto planeHeight = boundingRect().height();
-        auto x = m_easingCurve.valueForProgress(m_time) * width
-            - planeWidth / 2;
+        auto x = m_curve.valueForProgress(m_time) * width - planeWidth / 2;
         if (m_inverted)
             x = width - x;
         setPos(x, m_time * (height + planeHeight));

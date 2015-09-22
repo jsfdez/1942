@@ -33,7 +33,7 @@ private:
 	virtual void keyReleaseEvent(QKeyEvent *event);
 
     std::function<QPixmap()> m_pixmap;
-	QEasingCurve m_easingCurve;
+    QEasingCurve m_curve;
 	qreal m_time = 0.0f;
 	bool m_inverted = false;
 };
