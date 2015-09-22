@@ -8,9 +8,10 @@
 #include "pixmapcache.h"
 
 GraphicsEnemyObject::GraphicsEnemyObject(EnemyType type,
-	QEasingCurve easingCurve, QGraphicsItem* parent)
+	QEasingCurve easingCurve, bool inverted, QGraphicsItem* parent)
 : GraphicsPlayerObject(parent)
 , m_easingCurve(easingCurve)
+, m_inverted(inverted)
 {
     switch(type)
     {
@@ -63,8 +64,10 @@ void GraphicsEnemyObject::advance(int phase)
 	else
 	{
 		const auto rect = scene()->sceneRect();
-		setPos(m_easingCurve.valueForProgress(m_time) * rect.width(),
-			m_time * rect.height());
+		auto x = m_easingCurve.valueForProgress(m_time) * rect.width();
+		if (m_inverted)
+			x = rect.width() - x;
+		setPos(x, m_time * rect.height());
 	}
 }
 

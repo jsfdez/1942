@@ -43,9 +43,11 @@ GameScene::GameScene(QObject *parent)
 
 void GameScene::spawnEnemies()
 {
-	QEasingCurve curve(static_cast<QEasingCurve::Type>(qrand() % 41));
+	auto type = static_cast<QEasingCurve::Type>(qrand() % 41);
+	QEasingCurve curve(type);
+	bool inverted = qrand() % 2;
 	addItem(new GraphicsEnemyObject(GraphicsEnemyObject::EnemyType::Green,
-		curve));
+		curve, inverted));
 }
 
 void GameScene::update()

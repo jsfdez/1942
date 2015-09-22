@@ -19,7 +19,7 @@ public:
         Boss
     };
 
-	GraphicsEnemyObject(EnemyType type, QEasingCurve easingCurve,
+	GraphicsEnemyObject(EnemyType type, QEasingCurve easingCurve, bool inverted,
 		QGraphicsItem *parent = nullptr);
 
 	virtual QRectF boundingRect() const;
@@ -35,6 +35,7 @@ private:
     std::function<QPixmap()> m_pixmap;
 	QEasingCurve m_easingCurve;
 	qreal m_time = 0.0f;
+	bool m_inverted = false;
 };
 
 #endif // GRAPHICSENEMYOBJECT_H
