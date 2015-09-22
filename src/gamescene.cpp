@@ -45,12 +45,17 @@ void GameScene::spawnEnemies()
 {
 	auto type = static_cast<QEasingCurve::Type>(qrand() % 41);
 	QEasingCurve curve(type);
-	addItem(new GraphicsEnemyObject(GraphicsEnemyObject::EnemyType::Green,
-        curve, true));
-    auto deferredEnemy = new GraphicsEnemyObject(
-        GraphicsEnemyObject::EnemyType::Green, curve, false);
-    QTimer::singleShot(1000, std::bind(&GameScene::addItem, this,
-        deferredEnemy));
+    auto white = new GraphicsEnemyObject(GraphicsEnemyObject::EnemyType::White,
+        curve, true);
+    addItem(white);
+    connect(white, &GraphicsEnemyObject::cannonTriggered, this,
+        &GameScene::planeShot);
+
+    auto green = new GraphicsEnemyObject(GraphicsEnemyObject::EnemyType::Green,
+        curve, false);
+    connect(green, &GraphicsEnemyObject::cannonTriggered, this,
+        &GameScene::planeShot);
+    QTimer::singleShot(1000, std::bind(&GameScene::addItem, this, green));
 }
 
 void GameScene::update()
@@ -68,11 +73,6 @@ void GameScene::update()
         case EnemyType:
             planes.append(dynamic_cast<AbstractGraphicsPlaneObject*>(item));
         }
-
-//        if(item->type() == PlayerType || item->type() == EnemyType)
-//        {
-//            planes.append(dynamic_cast<AbstractGraphicsPlaneObject*>(item));
-//        }
     }
     if(player)
     {

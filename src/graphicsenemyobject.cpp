@@ -1,6 +1,7 @@
 #include "graphicsenemyobject.h"
 
 #include <QDebug>
+#include <QTimer>
 #include <QPainter>
 #include <QKeyEvent>
 
@@ -20,6 +21,10 @@ GraphicsEnemyObject::GraphicsEnemyObject(EnemyType type,
     case EnemyType::White: m_pixmap = &PixmapCache::whiteEnemy; break;
     case EnemyType::Boss: m_pixmap  = &PixmapCache::bossEnemy;  break;
     }
+
+    auto timer = new QTimer(this);
+    timer->start(qrand() % 1000);
+    connect(timer, &QTimer::timeout, this, &GraphicsEnemyObject::trigger);
 }
 
 void GraphicsEnemyObject::move()
@@ -44,6 +49,18 @@ void GraphicsEnemyObject::move()
 int GraphicsEnemyObject::type() const
 {
     return GameScene::EnemyType;
+}
+
+QRectF GraphicsEnemyObject::boundingRect() const
+{
+    auto rect = AbstractGraphicsPlaneObject::boundingRect();
+    rect.setSize(rect.size());
+    return rect;
+}
+
+QVector2D GraphicsEnemyObject::direction() const
+{
+    return QVector2D(0.f, 1.f);
 }
 
 QPixmap GraphicsEnemyObject::pixmap() const

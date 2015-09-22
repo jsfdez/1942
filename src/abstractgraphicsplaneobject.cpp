@@ -35,7 +35,7 @@ void AbstractGraphicsPlaneObject::paint(QPainter *painter,
         const auto asset = pixmap();
         const QRect source(m_frame * asset.width() / 4, 0, asset.width() / 4,
                            asset.height());
-        painter->drawPixmap({0, 0}, asset, source);
+        painter->drawPixmap(boundingRect(), asset, source);
         break;
     }
     case Status::Death:
@@ -80,16 +80,17 @@ void AbstractGraphicsPlaneObject::impact(qint32 damage)
 
 void AbstractGraphicsPlaneObject::trigger()
 {
+    const auto dir = direction();
     QVector<QPair<QPoint, QVector2D>> bullets(m_cannonCount);
     switch(m_cannonCount)
     {
     case 2:
         bullets[0].first = QPoint(pos().x() + boundingRect().width() / 4,
-            pos().y() - 5);
-        bullets[0].second = QVector2D(0.f, -1.f);
+            pos().y() + dir.y() * 20);
+        bullets[0].second = dir;
         bullets[1].first = QPoint(pos().x() + boundingRect().width() * 3 / 4,
-            pos().y() - 5);
-        bullets[1].second = QVector2D(0.f, -1.f);
+            pos().y() + dir.y() * 20);
+        bullets[1].second = dir;
         break;
     default:
         qFatal("Invalid cannon count");

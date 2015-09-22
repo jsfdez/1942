@@ -33,6 +33,7 @@ signals:
 protected:
     virtual QPixmap pixmap() const = 0;
     virtual void move() = 0;
+    virtual QVector2D direction() const = 0;
     virtual void trigger();
 
     Status m_status = Status::Alive;

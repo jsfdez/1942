@@ -17,6 +17,7 @@ public:
     virtual int type() const override;
 
 protected:
+    virtual QVector2D direction() const override;
     virtual QPixmap pixmap() const;
     virtual void move() override;
     virtual void trigger() override;

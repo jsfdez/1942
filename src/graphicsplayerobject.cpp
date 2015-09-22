@@ -52,6 +52,11 @@ int GraphicsPlayerObject::type() const
     return GameScene::PlayerType;
 }
 
+QVector2D GraphicsPlayerObject::direction() const
+{
+    return QVector2D(0.f, -1.f);
+}
+
 QPixmap GraphicsPlayerObject::pixmap() const
 {
     return PixmapCache::player();

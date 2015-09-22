@@ -1,5 +1,4 @@
-#ifndef GRAPHICSENEMYOBJECT_H
-#define GRAPHICSENEMYOBJECT_H
+#pragma once
 
 #include <functional>
 
@@ -25,6 +24,11 @@ public:
     virtual void move() override;
     virtual int type() const override;
 
+    virtual QRectF boundingRect() const;
+
+protected:
+    virtual QVector2D direction() const override;
+
 private:
     virtual QPixmap pixmap() const override;
 
@@ -33,5 +37,3 @@ private:
 	qreal m_time = 0.0f;
 	bool m_inverted = false;
 };
-
-#endif // GRAPHICSENEMYOBJECT_H
