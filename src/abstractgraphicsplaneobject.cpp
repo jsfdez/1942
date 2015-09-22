@@ -67,9 +67,9 @@ void AbstractGraphicsPlaneObject::advance(int phase)
     else if (status() == Status::Alive) move();
 }
 
-void AbstractGraphicsPlaneObject::impact(quint32 damage)
+void AbstractGraphicsPlaneObject::impact(qint32 damage)
 {
-    m_health = qMax(0u, m_health - damage);
+    m_health = qMax(0, m_health - damage);
     if(!m_health)
     {
         m_status = Status::Death;

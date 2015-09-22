@@ -57,10 +57,31 @@ void GameScene::update()
 {
     Q_ASSERT(sender() == findChild<QTimer*>());
 
-    QList<QGraphicsItem*> planes;
+    GraphicsPlayerObject* player = nullptr;
+    QList<AbstractGraphicsPlaneObject*> planes;
     for(auto item : items()) // find planes
-        if(item->type() == PlayerType || item->type() == EnemyType)
-            planes.append(item);
+    {
+        switch(item->type())
+        {
+        case PlayerType:
+            player = qgraphicsitem_cast<GraphicsPlayerObject*>(item);
+        case EnemyType:
+            planes.append(dynamic_cast<AbstractGraphicsPlaneObject*>(item));
+        }
+
+//        if(item->type() == PlayerType || item->type() == EnemyType)
+//        {
+//            planes.append(dynamic_cast<AbstractGraphicsPlaneObject*>(item));
+//        }
+    }
+    if(player)
+    {
+        const auto playerRect = player->sceneBoundingRect();
+        for(auto plane : planes)
+            if(plane != player)
+                if (playerRect.contains(plane->sceneBoundingRect()))
+                    player->impact(std::numeric_limits<qint32>::max());
+    }
 
     for(auto item : items())
     {
@@ -75,16 +96,16 @@ void GameScene::update()
                 for(auto it = planes.begin(); it != planes.end() && !impacted;
                     ++it)
                 {
-                    const auto planeRect = (*it)->boundingRect()
-                            .translated((*it)->pos());
+                    const auto planeRect = (*it)->sceneBoundingRect();
                     auto plane = qgraphicsitem_cast<GraphicsPlayerObject*>(*it);
                     if(plane->status() == GraphicsPlayerObject::Status::Alive
                        && planeRect.contains(rect))
                     {
                         plane->impact(100);
-//                        plane->deleteLater();
+                        impacted = true;
                     }
                 }
+                if(impacted) delete item;
             }
         }
     }

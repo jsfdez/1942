@@ -24,7 +24,7 @@ public:
     virtual void advance(int phase) override;
 
 public slots:
-    void impact(quint32 damage);
+    void impact(qint32 damage);
 
 signals:
     void exploded();

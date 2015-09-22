@@ -30,4 +30,5 @@ void GameWindow::on_actionNewGame_triggered()
     auto scene = new GameScene(this);
     scene->setObjectName(k_currentGameObjectName);
     m_ui->graphicsView->setScene(scene);
+    m_ui->graphicsView->fitInView(scene->sceneRect(), Qt::KeepAspectRatio);
 }
