@@ -3,6 +3,8 @@
 
 #include <functional>
 
+#include <QEasingCurve>
+
 #include "graphicsplayerobject.h"
 
 class GraphicsEnemyObject : public GraphicsPlayerObject
@@ -17,7 +19,8 @@ public:
         Boss
     };
 
-    GraphicsEnemyObject(EnemyType type, QGraphicsItem *parent = nullptr);
+	GraphicsEnemyObject(EnemyType type, QEasingCurve easingCurve,
+		QGraphicsItem *parent = nullptr);
 
 	virtual QRectF boundingRect() const;
 	virtual void paint(QPainter* painter,
@@ -30,6 +33,8 @@ private:
 	virtual void keyReleaseEvent(QKeyEvent *event);
 
     std::function<QPixmap()> m_pixmap;
+	QEasingCurve m_easingCurve;
+	qreal m_time = 0.0f;
 };
 
 #endif // GRAPHICSENEMYOBJECT_H

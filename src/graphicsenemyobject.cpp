@@ -1,13 +1,16 @@
 #include "graphicsenemyobject.h"
 
+#include <QDebug>
 #include <QPainter>
 #include <QKeyEvent>
 
 #include "gamescene.h"
 #include "pixmapcache.h"
 
-GraphicsEnemyObject::GraphicsEnemyObject(EnemyType type, QGraphicsItem* parent)
+GraphicsEnemyObject::GraphicsEnemyObject(EnemyType type,
+	QEasingCurve easingCurve, QGraphicsItem* parent)
 : GraphicsPlayerObject(parent)
+, m_easingCurve(easingCurve)
 {
     switch(type)
     {
@@ -48,16 +51,21 @@ void GraphicsEnemyObject::paint(QPainter* painter,
         break;
     }
     }
-//    const auto asset = m_pixmap();
-//	const QRect source(m_frame * asset.width() / 4, 0, asset.width() / 4,
-//		asset.height());
-//	painter->drawPixmap({0, 0}, asset, source);
 }
 
 void GraphicsEnemyObject::advance(int phase)
 {
 	if(phase == 1)
-        GraphicsPlayerObject::advance(phase);
+	{
+		GraphicsPlayerObject::advance(phase);
+		m_time += 0.005f;
+	}
+	else
+	{
+		const auto rect = scene()->sceneRect();
+		setPos(m_easingCurve.valueForProgress(m_time) * rect.width(),
+			m_time * rect.height());
+	}
 }
 
 int GraphicsEnemyObject::type() const

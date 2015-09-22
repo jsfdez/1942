@@ -29,18 +29,23 @@ GameScene::GameScene(QObject *parent)
     connect(m_player, &GraphicsPlayerObject::cannonTriggered, this,
         &GameScene::planeShot);
 
-    addItem(new GraphicsEnemyObject(GraphicsEnemyObject::EnemyType::Boss));
-
     setFocusItem(m_player);
 
     auto timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &GameScene::update);
 	timer->start(1000 / 30);
+
+	auto spawnEnemiesTyper = new QTimer(this);
+	connect(spawnEnemiesTyper, &QTimer::timeout, this,
+		&GameScene::spawnEnemies);
+	spawnEnemiesTyper->start(1000);
 }
 
 void GameScene::spawnEnemies()
 {
-
+	QEasingCurve curve(static_cast<QEasingCurve::Type>(qrand() % 41));
+	addItem(new GraphicsEnemyObject(GraphicsEnemyObject::EnemyType::Green,
+		curve));
 }
 
 void GameScene::update()
