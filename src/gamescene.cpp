@@ -38,7 +38,8 @@ GameScene::GameScene(QObject *parent)
 	auto spawnEnemiesTyper = new QTimer(this);
 	connect(spawnEnemiesTyper, &QTimer::timeout, this,
 		&GameScene::spawnEnemies);
-    spawnEnemiesTyper->start(2000);
+	spawnEnemiesTyper->start(5000);
+	spawnEnemies();
 }
 
 void GameScene::spawnEnemies()
@@ -51,11 +52,11 @@ void GameScene::spawnEnemies()
     connect(white, &GraphicsEnemyObject::cannonTriggered, this,
         &GameScene::planeShot);
 
-    auto green = new GraphicsEnemyObject(GraphicsEnemyObject::EnemyType::Green,
-        curve, false);
-    connect(green, &GraphicsEnemyObject::cannonTriggered, this,
-        &GameScene::planeShot);
-    QTimer::singleShot(1000, std::bind(&GameScene::addItem, this, green));
+	auto green = new GraphicsEnemyObject(GraphicsEnemyObject::EnemyType::Green,
+		curve, false);
+	connect(green, &GraphicsEnemyObject::cannonTriggered, this,
+		&GameScene::planeShot);
+	QTimer::singleShot(1000, std::bind(&GameScene::addItem, this, green));
 }
 
 void GameScene::update()

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <QTimer>
 #include <QVector2D>
 #include <QGraphicsObject>
 
@@ -41,4 +42,9 @@ protected:
     quint8 m_cannonCount = 2;
     quint8 k_speed = 10;
     quint8 m_frame = 0;
+
+private:
+	QTimer m_blinkTimer;
+	quint8 m_blinkCount = 0;
+	const quint8 k_maxBlink = 20;
 };

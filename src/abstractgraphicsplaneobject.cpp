@@ -11,6 +11,13 @@ AbstractGraphicsPlaneObject::AbstractGraphicsPlaneObject(QGraphicsItem *parent)
     auto effect = new QGraphicsDropShadowEffect;
     effect->setColor(QColor(0, 0, 0, 128));
     setGraphicsEffect(effect);
+	m_blinkTimer.setInterval(100);
+	m_blinkTimer.setSingleShot(false);
+	connect(&m_blinkTimer, &QTimer::timeout, [&]()
+	{
+		if(--m_blinkCount)
+			m_blinkTimer.stop();
+	});
 }
 
 AbstractGraphicsPlaneObject::Status AbstractGraphicsPlaneObject::status() const
@@ -33,8 +40,10 @@ void AbstractGraphicsPlaneObject::paint(QPainter *painter,
     case Status::Alive:
     {
         const auto asset = pixmap();
-        const QRect source(m_frame * asset.width() / 4, 0, asset.width() / 4,
-                           asset.height());
+		auto frame = m_frame * asset.width() / 4;
+		if(m_blinkCount % 2 != 0)
+			frame = 3 * asset.width() / 4;
+		const QRect source(frame, 0, asset.width() / 4, asset.height());
         painter->drawPixmap(boundingRect(), asset, source);
         break;
     }
@@ -54,8 +63,10 @@ void AbstractGraphicsPlaneObject::advance(int phase)
     if(phase == 1)
     {
         if (m_status == Status::Alive)
-            m_frame = ++m_frame % 3;
-        else if (m_frame == 6)
+		{
+			m_frame = ++m_frame % 3;
+		}
+		else if (m_frame == 6)
         {
             emit exploded();
             deleteLater();
@@ -76,20 +87,34 @@ void AbstractGraphicsPlaneObject::impact(qint32 damage)
         graphicsEffect()->setEnabled(false);
         m_frame = 0;
     }
+	else
+	{
+		m_blinkTimer.start();
+		m_blinkCount = k_maxBlink;
+	}
 }
 
 void AbstractGraphicsPlaneObject::trigger()
 {
     const auto dir = direction();
+	const auto x = pos().x(), y = pos().y();
+	const auto width = boundingRect().size().width();
+	const auto height = boundingRect().size().height();
+	const auto dirY = dir.y() * (height + 20);
     QVector<QPair<QPoint, QVector2D>> bullets(m_cannonCount);
     switch(m_cannonCount)
     {
+	case 1:
+	{
+		QPoint point(x + width / 2, y + dirY);
+		bullets[0].first = point;
+		bullets[0].second = dir;
+		break;
+	}
     case 2:
-        bullets[0].first = QPoint(pos().x() + boundingRect().width() / 4,
-            pos().y() + dir.y() * 20);
+		bullets[0].first = QPoint(x + width / 4, y + dirY);
         bullets[0].second = dir;
-        bullets[1].first = QPoint(pos().x() + boundingRect().width() * 3 / 4,
-            pos().y() + dir.y() * 20);
+		bullets[1].first = QPoint(x + width * 3 / 4, y + dirY);
         bullets[1].second = dir;
         break;
     default:

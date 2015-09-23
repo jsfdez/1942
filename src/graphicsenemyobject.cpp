@@ -14,6 +14,7 @@ GraphicsEnemyObject::GraphicsEnemyObject(EnemyType type,
 , m_curve(easingCurve)
 , m_inverted(inverted)
 {
+	m_cannonCount = 1;
     setVisible(false);
     switch(type)
     {
@@ -23,8 +24,8 @@ GraphicsEnemyObject::GraphicsEnemyObject(EnemyType type,
     }
 
     auto timer = new QTimer(this);
-    timer->start(qrand() % 1000);
-    connect(timer, &QTimer::timeout, this, &GraphicsEnemyObject::trigger);
+	timer->start(qrand() % 2700 + 300);
+	connect(timer, &QTimer::timeout, this, &GraphicsEnemyObject::trigger);
 }
 
 void GraphicsEnemyObject::move()
