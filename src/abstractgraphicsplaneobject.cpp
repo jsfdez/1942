@@ -1,6 +1,7 @@
 #include "abstractgraphicsplaneobject.h"
 
 #include <QPainter>
+#include <QGraphicsScene>
 #include <QGraphicsDropShadowEffect>
 
 #include "pixmapcache.h"
@@ -35,6 +36,10 @@ QRectF AbstractGraphicsPlaneObject::boundingRect() const
 void AbstractGraphicsPlaneObject::paint(QPainter *painter,
     const QStyleOptionGraphicsItem*, QWidget*)
 {
+    painter->save();
+    QRectF clipRect(scene()->sceneRect().topLeft(),
+        scene()->sceneRect().size());
+    painter->setClipRect(clipRect);
     switch(m_status)
     {
     case Status::Alive:
@@ -56,6 +61,7 @@ void AbstractGraphicsPlaneObject::paint(QPainter *painter,
         break;
     }
     }
+    painter->restore();
 }
 
 void AbstractGraphicsPlaneObject::advance(int phase)

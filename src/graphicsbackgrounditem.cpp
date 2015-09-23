@@ -32,6 +32,7 @@ void GraphicsBackgroundItem::advance(int phase)
 {
 	if(phase == 0)
         m_offset = ++m_offset % PixmapCache::sea().height();
+    else update();
 }
 
 int GraphicsBackgroundItem::type() const

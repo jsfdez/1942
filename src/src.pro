@@ -19,7 +19,8 @@ SOURCES += \
     graphicsbulletitem.cpp \
     graphicsplayerobject.cpp \
     graphicsenemyobject.cpp \
-    abstractgraphicsplaneobject.cpp
+    abstractgraphicsplaneobject.cpp \
+    graphicsview.cpp
 
 HEADERS += \
     gamewindow.h \
@@ -29,7 +30,8 @@ HEADERS += \
     graphicsbulletitem.h \
     graphicsplayerobject.h \
     graphicsenemyobject.h \
-    abstractgraphicsplaneobject.h
+    abstractgraphicsplaneobject.h \
+    graphicsview.h
 
 FORMS += \
     gamewindow.ui
