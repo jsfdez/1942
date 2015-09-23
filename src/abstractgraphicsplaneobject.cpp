@@ -15,7 +15,7 @@ AbstractGraphicsPlaneObject::AbstractGraphicsPlaneObject(QGraphicsItem *parent)
 	m_blinkTimer.setSingleShot(false);
 	connect(&m_blinkTimer, &QTimer::timeout, [&]()
 	{
-		if(--m_blinkCount)
+        if(--m_blinkCount == 0)
 			m_blinkTimer.stop();
 	});
 }

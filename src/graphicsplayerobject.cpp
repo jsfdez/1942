@@ -10,8 +10,9 @@
 #include "pixmapcache.h"
 
 GraphicsPlayerObject::GraphicsPlayerObject(QGraphicsItem *parent)
-    : AbstractGraphicsPlaneObject(parent)
+: AbstractGraphicsPlaneObject(parent)
 {
+    m_health = 10000;
     setFlag(GraphicsPlayerObject::ItemIsFocusable, true);
     m_triggerTimer.setSingleShot(false);
     m_triggerTimer.setInterval(100);

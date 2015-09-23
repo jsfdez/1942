@@ -46,5 +46,5 @@ protected:
 private:
 	QTimer m_blinkTimer;
 	quint8 m_blinkCount = 0;
-	const quint8 k_maxBlink = 20;
+    const quint8 k_maxBlink = 10;
 };

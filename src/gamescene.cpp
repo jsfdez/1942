@@ -52,7 +52,7 @@ void GameScene::spawnEnemies()
     connect(white, &GraphicsEnemyObject::cannonTriggered, this,
         &GameScene::planeShot);
 
-	auto green = new GraphicsEnemyObject(GraphicsEnemyObject::EnemyType::Green,
+    auto green = new GraphicsEnemyObject(GraphicsEnemyObject::EnemyType::Green,
 		curve, false);
 	connect(green, &GraphicsEnemyObject::cannonTriggered, this,
 		&GameScene::planeShot);
