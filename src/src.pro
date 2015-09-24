@@ -43,3 +43,5 @@ FORMS += \
 
 RESOURCES += \
     ../res/assets.qrc
+
+RC_FILE = ../1942.rc

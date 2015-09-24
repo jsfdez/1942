@@ -9,6 +9,7 @@
 #include <QOpenGLWidget>
 
 #include "gamescene.h"
+#include "pixmapcache.h"
 
 const auto k_currentGameObjectName = QStringLiteral("currentGame");
 
@@ -22,6 +23,10 @@ GameWindow::GameWindow(QWidget *parent)
     loadSettings();
 
     setWindowTitle(QString("1942").arg(m_highScore));
+    {
+        const auto pixmap = PixmapCache::player();
+        setWindowIcon(pixmap.copy(0, 0, pixmap.width() / 4, pixmap.height()));
+    }
 
     metaObject()->invokeMethod(this, "newGame");
 }
