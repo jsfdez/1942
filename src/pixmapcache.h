@@ -22,7 +22,9 @@ struct PixmapCache
     static QPixmap enemyBullet();
     static QPixmap explosion();
 
+    static QPixmap text(const QString &string);
     static QPixmap pauseText();
+    static QPixmap gameOverText();
 
 private:
     static QPixmap pixmap(const QString& path);

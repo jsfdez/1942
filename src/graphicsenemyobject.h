@@ -26,6 +26,8 @@ public:
 
     virtual QRectF boundingRect() const;
 
+    EnemyType enemyType() const;
+
 protected:
     virtual QVector2D direction() const override;
 
@@ -38,4 +40,5 @@ private:
 	bool m_inverted = false;
     quint32 m_triggerPendingTicks;
     const quint32 k_triggerTicks;
+    EnemyType m_enemyType;
 };

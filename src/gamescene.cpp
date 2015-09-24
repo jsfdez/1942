@@ -9,6 +9,7 @@
 
 #include "pixmapcache.h"
 #include "graphicshudobject.h"
+#include "customeasingcurve.h"
 #include "graphicsbulletitem.h"
 #include "graphicsenemyobject.h"
 #include "graphicsplayerobject.h"
@@ -20,11 +21,19 @@ GameScene::GameScene(QObject *parent)
 {
     addItem(new GraphicsBackgroundItem);
     addItem(m_hudObject);
+
+    connect(m_hudObject, &GraphicsHudObject::gameOver, this,
+        &GameScene::showGameOverText);
+
     auto timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &GameScene::update);
     timer->start(1000 / FPS);
 
     spawnPlayer();
+}
+
+GameScene::~GameScene()
+{
 }
 
 bool GameScene::isPaused() const
@@ -34,21 +43,19 @@ bool GameScene::isPaused() const
 
 void GameScene::spawnEnemies(GraphicsEnemyObject::EnemyType type, bool inverted)
 {
-    QEasingCurve::Type curveType;
+    QEasingCurve curve;
 
     switch (type)
     {
     case GraphicsEnemyObject::EnemyType::White:
-        curveType = static_cast<QEasingCurve::Type>(qrand() % 41);
-        break;
     case GraphicsEnemyObject::EnemyType::Green:
-        curveType = static_cast<QEasingCurve::Type>(qrand() % 41);
+        curve.setType(static_cast<QEasingCurve::Type>(qrand() % 41));
         break;
     case GraphicsEnemyObject::EnemyType::Boss:
+        curve.setCustomType(&CustomEasingCurve::simpleEasingCurve);
         break;
     }
 
-    QEasingCurve curve(curveType);
     auto enemy = new GraphicsEnemyObject(type, curve, inverted);
     addItem(enemy);
     connect(enemy, &GraphicsEnemyObject::cannonTriggered, this,
@@ -66,7 +73,7 @@ void GameScene::spawnPlayer()
     const auto playerSize = m_player->boundingRect().size();
     QPointF pos{
         sceneRect().width() / 2 - playerSize.width() / 2,
-        sceneRect().height(),
+        sceneRect().height()/* - playerSize.height()*/,
     };
     m_player->setPos(pos);
     m_hudObject->setHealth(m_player->health());
@@ -129,9 +136,14 @@ void GameScene::update()
 
         const auto playerRect = player->sceneBoundingRect();
         for(auto plane : planes)
+        {
             if(plane != player)
-                if (playerRect.contains(plane->sceneBoundingRect()))
+            {
+                const auto enemyRect = plane->sceneBoundingRect();
+                if (playerRect.intersects(enemyRect))
                     player->impact(std::numeric_limits<qint32>::max());
+            }
+        }
     }
 
     for(auto item : items())
@@ -148,7 +160,8 @@ void GameScene::update()
                     ++it)
                 {
                     const auto planeRect = (*it)->sceneBoundingRect();
-                    auto plane = qgraphicsitem_cast<AbstractGraphicsPlaneObject*>(*it);
+                    auto plane = qgraphicsitem_cast<
+                        AbstractGraphicsPlaneObject*>(*it);
                     const auto status = plane->status();
                     if(status == AbstractGraphicsPlaneObject::Status::Alive
                        && planeRect.contains(rect))
@@ -162,13 +175,21 @@ void GameScene::update()
         }
     }
 
-    if(--m_spawnEnemiesTicks == 0)
+    if(--m_spawnEnemiesTicks == 0) // Spawn enemies
     {
-        spawnEnemies(GraphicsEnemyObject::EnemyType::White, true);
+        if(!(qrand() % 24)) // 1/25
+            spawnEnemies(GraphicsEnemyObject::EnemyType::Boss, true);
+        else
+            spawnEnemies(GraphicsEnemyObject::EnemyType::White, true);
         m_spawnEnemiesTicks = m_spawnEnemiesMaxTicks;
     }
     else if(m_spawnEnemiesTicks == m_spawnEnemiesMaxTicks / 2)
-        spawnEnemies(GraphicsEnemyObject::EnemyType::Green, false);
+    {
+        if(!(qrand() % 24)) // 1/25
+            spawnEnemies(GraphicsEnemyObject::EnemyType::Boss, false);
+        else
+            spawnEnemies(GraphicsEnemyObject::EnemyType::Green, false);
+    }
 
     if(m_respawnTicks && --m_respawnTicks == 0)
         spawnPlayer();
@@ -196,7 +217,11 @@ void GameScene::planeExploded()
         m_player = nullptr;
     }
     else
-        m_hudObject->addScore(10);
+    {
+        auto enemy = qgraphicsitem_cast<GraphicsEnemyObject*>(plane);
+        m_hudObject->addScore(enemy->enemyType()
+            == GraphicsEnemyObject::EnemyType::Boss ? 1000 : 10);
+    }
 }
 
 void GameScene::showPauseText(bool show)
@@ -211,5 +236,15 @@ void GameScene::showPauseText(bool show)
     else
     {
         delete m_pauseItem;
+        m_pauseItem = nullptr;
     }
+}
+
+void GameScene::showGameOverText()
+{
+    m_gameOverItem = addPixmap(PixmapCache::gameOverText());
+    const auto center = m_gameOverItem->boundingRect().center();
+    m_gameOverItem->setPos(width() / 2 - center.x(),
+        height() / 2 - center.y());
+    m_paused = true;
 }

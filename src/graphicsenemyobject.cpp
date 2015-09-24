@@ -15,14 +15,25 @@ GraphicsEnemyObject::GraphicsEnemyObject(EnemyType type,
 , m_curve(easingCurve)
 , m_inverted(inverted)
 , k_triggerTicks((qrand() % 1500 + 500) / FPS)
+, m_enemyType(type)
 {
 	m_cannonCount = 1;
     setVisible(false);
     switch(type)
     {
-    case EnemyType::Green: m_pixmap = &PixmapCache::greenEnemy; break;
-    case EnemyType::White: m_pixmap = &PixmapCache::whiteEnemy; break;
-    case EnemyType::Boss: m_pixmap  = &PixmapCache::bossEnemy;  break;
+    case EnemyType::Green:
+        m_pixmap = &PixmapCache::greenEnemy;
+        m_health = ENEMY_HEALTH;
+        break;
+    case EnemyType::White:
+        m_pixmap = &PixmapCache::whiteEnemy;
+        m_health = ENEMY_HEALTH;
+        break;
+    case EnemyType::Boss:
+        m_pixmap  = &PixmapCache::bossEnemy;
+        m_health = BOSS_HEALTH;
+        m_cannonCount = 2;
+        break;
     }
 
     m_triggerPendingTicks = k_triggerTicks;
@@ -62,6 +73,11 @@ QRectF GraphicsEnemyObject::boundingRect() const
     auto rect = AbstractGraphicsPlaneObject::boundingRect();
     rect.setSize(rect.size());
     return rect;
+}
+
+GraphicsEnemyObject::EnemyType GraphicsEnemyObject::enemyType() const
+{
+    return m_enemyType;
 }
 
 QVector2D GraphicsEnemyObject::direction() const

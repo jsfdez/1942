@@ -2,6 +2,8 @@
 
 #define FPS             30
 #define HUD_HEIGHT      50
-#define PLAYER_HEALTH   500
 #define DAMAGE_BLINK    FPS
-#define RESPAWN_BLINK   FPS * 2
+#define RESPAWN_BLINK   FPS * 4
+#define PLAYER_HEALTH   500
+#define ENEMY_HEALTH    200
+#define BOSS_HEALTH     2000

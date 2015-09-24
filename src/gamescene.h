@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QTimer>
+#include <QPointer>
 #include <QGraphicsScene>
 
 #include "defines.h"
@@ -8,6 +9,7 @@
 
 class GraphicsHudObject;
 class GraphicsPlayerObject;
+class GraphicsGameOverItem;
 
 class GameScene : public QGraphicsScene
 {
@@ -23,6 +25,7 @@ public:
     };
 
     GameScene(QObject *parent = 0);
+    ~GameScene();
 
     bool isPaused() const;
 
@@ -40,12 +43,14 @@ private slots:
 
 private:
     void showPauseText(bool show);
+    void showGameOverText();
 
     GraphicsPlayerObject *m_player = nullptr;
     bool m_paused = false;
     quint32 m_spawnEnemiesMaxTicks = 2 * FPS;
     quint32 m_spawnEnemiesTicks = m_spawnEnemiesMaxTicks;
     quint32 m_respawnTicks = 0;
-    QGraphicsItem *m_pauseItem = nullptr;
-    GraphicsHudObject *m_hudObject;
+    GraphicsHudObject *m_hudObject = nullptr;
+    QGraphicsItem* m_pauseItem;
+    QGraphicsItem* m_gameOverItem;
 };

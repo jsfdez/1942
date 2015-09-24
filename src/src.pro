@@ -21,7 +21,8 @@ SOURCES += \
     graphicsenemyobject.cpp \
     abstractgraphicsplaneobject.cpp \
     graphicsview.cpp \
-    graphicshudobject.cpp
+    graphicshudobject.cpp \
+    customeasingcurve.cpp
 
 HEADERS += \
     gamewindow.h \
@@ -34,7 +35,8 @@ HEADERS += \
     abstractgraphicsplaneobject.h \
     graphicsview.h \
     graphicshudobject.h \
-    defines.h
+    defines.h \
+    customeasingcurve.h
 
 FORMS += \
     gamewindow.ui

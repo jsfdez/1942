@@ -17,7 +17,7 @@ GraphicsHudObject::GraphicsHudObject(quint32 maxHealth, QGraphicsItem *parent)
 
 QRectF GraphicsHudObject::boundingRect() const
 {
-    return QRectF(0, 0, scene()->sceneRect().width(), GameScene::HudHeight);
+    return QRectF(0, 0, scene()->sceneRect().width(), HUD_HEIGHT);
 }
 
 void GraphicsHudObject::paint(QPainter *painter,
@@ -29,7 +29,7 @@ void GraphicsHudObject::paint(QPainter *painter,
     painter->drawPixmap(0, 0, scorePixmap);
 
     QRectF healthBarRect(scorePixmap.rect().right() + 2, 3,
-        scorePixmap.rect().width(), GameScene::HudHeight - 6);
+        scorePixmap.rect().width(), HUD_HEIGHT - 6);
     {
         painter->save();
         QBrush brush(Qt::green);

@@ -16,7 +16,7 @@ QPixmap PixmapCache::character(const QChar &character)
 
 QPixmap PixmapCache::hudNumber(quint32 number)
 {
-    const auto height = GameScene::HudHeight - 4;
+    const auto height = HUD_HEIGHT - 4;
     const auto numberPixmap = [height](const QChar &digit)
     {
         QPixmap pixmap;
@@ -63,7 +63,7 @@ QPixmap PixmapCache::playerLife()
     if (!QPixmapCache::find(name, &pixmap))
     {
         pixmap = player().copy(0, 0, player().width() / 4,
-            player().height()).scaledToHeight(GameScene::HudHeight - 4);
+            player().height()).scaledToHeight(HUD_HEIGHT - 4);
         QPixmapCache::insert(name, pixmap);
     }
     return pixmap;
@@ -99,24 +99,33 @@ QPixmap PixmapCache::explosion()
     return pixmap(QStringLiteral(":/asset/explosion.png"));
 }
 
-QPixmap PixmapCache::pauseText()
+QPixmap PixmapCache::text(const QString &string)
 {
     QPixmap pixmap;
-    const QString text = "PAUSE";
-    if (!QPixmapCache::find(text, &pixmap))
+    if (!QPixmapCache::find(string, &pixmap))
     {
-        pixmap = QPixmap(text.size() * 64, 64);
+        pixmap = QPixmap(string.size() * 64, 64);
         pixmap.fill(Qt::transparent);
         {
             QPainter painter(&pixmap);
-            for(int i = 0; i < text.size(); ++i)
+            for(int i = 0; i < string.size(); ++i)
             {
-                painter.drawPixmap(i * 64, 0, 64, 64, character(text.at(i)));
+                painter.drawPixmap(i * 64, 0, 64, 64, character(string.at(i)));
             }
         }
-        QPixmapCache::insert(text, pixmap);
+        QPixmapCache::insert(string, pixmap);
     }
     return pixmap;
+}
+
+QPixmap PixmapCache::pauseText()
+{
+    return text(QStringLiteral("PAUSE"));
+}
+
+QPixmap PixmapCache::gameOverText()
+{
+    return text(QStringLiteral("GAME OVER"));
 }
 
 QPixmap PixmapCache::pixmap(const QString &path)

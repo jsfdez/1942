@@ -27,30 +27,37 @@ void GraphicsPlayerObject::move()
 
     m_triggerPendingTicks = qMax(0, --m_triggerPendingTicks);
 
-    // Horizontal movement
-    if (m_keys.contains(Qt::Key_Left) && m_keys.contains(Qt::Key_Right));
-    else if (m_keys.contains(Qt::Key_Left))
-        p.setX(qMax(p.x() - k_speed, sceneRect.x()));
-    else if (m_keys.contains(Qt::Key_Right))
+    if(sceneBoundingRect().bottom() > scene()->sceneRect().bottom())
     {
-        const auto right = sceneRect.x() + sceneRect.width()
-        - boundingRect().width();
-        p.setX(qMin(p.x() + k_speed, right));
+        p.setY(p.y() - 2);
     }
-
-    // Vertical movement
-    if (m_keys.contains(Qt::Key_Up) && m_keys.contains(Qt::Key_Down));
-    else if (m_keys.contains(Qt::Key_Up))
-        p.setY(qMax(p.y() - k_speed, sceneRect.y()));
-    else if (m_keys.contains(Qt::Key_Down))
+    else
     {
-        const auto bottom = sceneRect.y() + sceneRect.height()
-        - boundingRect().height();
-        p.setY(qMin(p.y() + k_speed, bottom));
-    }
+        // Horizontal movement
+        if(m_keys.contains(Qt::Key_Left) && m_keys.contains(Qt::Key_Right));
+        else if (m_keys.contains(Qt::Key_Left))
+            p.setX(qMax(p.x() - k_speed, sceneRect.x()));
+        else if(m_keys.contains(Qt::Key_Right))
+        {
+            const auto right = sceneRect.x() + sceneRect.width()
+                    - boundingRect().width();
+            p.setX(qMin(p.x() + k_speed, right));
+        }
 
-    if(m_keys.contains(Qt::Key_Space))
-        trigger();
+        // Vertical movement
+        if(m_keys.contains(Qt::Key_Up) && m_keys.contains(Qt::Key_Down));
+        else if(m_keys.contains(Qt::Key_Up))
+            p.setY(qMax(p.y() - k_speed, sceneRect.y()));
+        else if(m_keys.contains(Qt::Key_Down))
+        {
+            const auto bottom = sceneRect.y() + sceneRect.height()
+                    - boundingRect().height();
+            p.setY(qMin(p.y() + k_speed, bottom));
+        }
+
+        if(m_keys.contains(Qt::Key_Space))
+            trigger();
+    }
 
     setPos(p);
 }
@@ -91,22 +98,27 @@ void GraphicsPlayerObject::focusOutEvent(QFocusEvent *)
 
 void GraphicsPlayerObject::keyPressEvent(QKeyEvent *event)
 {
-    switch(event->key())
-    {
-    case Qt::Key_Left:
-    case Qt::Key_Right:
-    case Qt::Key_Up:
-    case Qt::Key_Down:
-    case Qt::Key_Space:
-        m_keys.insert(event->key());
-        event->accept();
-        break;
-    case Qt::Key_S:
-        graphicsEffect()->setEnabled(!graphicsEffect()->isEnabled());
-        event->accept();
-        break;
-    default:
+    if(sceneBoundingRect().bottom() > scene()->sceneRect().bottom())
         event->ignore();
+    else
+    {
+        switch(event->key())
+        {
+        case Qt::Key_Left:
+        case Qt::Key_Right:
+        case Qt::Key_Up:
+        case Qt::Key_Down:
+        case Qt::Key_Space:
+            m_keys.insert(event->key());
+            event->accept();
+            break;
+        case Qt::Key_S:
+            graphicsEffect()->setEnabled(!graphicsEffect()->isEnabled());
+            event->accept();
+            break;
+        default:
+            event->ignore();
+        }
     }
 }
 
