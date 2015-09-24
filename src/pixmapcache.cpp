@@ -5,11 +5,40 @@
 #include <QPainter>
 #include <QPixmapCache>
 
+#include "gamescene.h"
+
 QPixmap PixmapCache::character(const QChar &character)
 {
     auto p = pixmap(QStringLiteral(":/asset/font.png"));
     return p.copy(character.cell() % 16 * 64, character.cell() / 16 * 64, 64,
-        64);
+                  64);
+}
+
+QPixmap PixmapCache::hudNumber(quint32 number)
+{
+    const auto height = GameScene::HudHeight - 4;
+    const auto numberPixmap = [height](const QChar &digit)
+    {
+        QPixmap pixmap;
+        const auto name = QString("hudNumber_%1").arg(digit);
+        if (!QPixmapCache::find(name, &pixmap))
+        {
+            pixmap = PixmapCache::character(digit).scaledToHeight(height);
+            QPixmapCache::insert(name, pixmap);
+        }
+        return pixmap;
+    };
+    const auto numberCount = 5;
+    QPixmap pixmap(height * numberCount, height);
+    pixmap.fill(Qt::transparent);
+    QPainter painter(&pixmap);
+    for(int i = 0; i < numberCount; ++i)
+    {
+        auto p = numberPixmap(QString("%1").arg(number % 10).at(0));
+        painter.drawPixmap(pixmap.width() - (i + 1) * height, 4, p);
+        number /= 10;
+    }
+    return pixmap;
 }
 
 QPixmap PixmapCache::background()
@@ -45,6 +74,11 @@ QPixmap PixmapCache::bossEnemy()
 QPixmap PixmapCache::bullet()
 {
     return pixmap(QStringLiteral(":/asset/bullet.png"));
+}
+
+QPixmap PixmapCache::enemyBullet()
+{
+    return pixmap(QStringLiteral(":/asset/enemy-bullet.png"));
 }
 
 QPixmap PixmapCache::explosion()

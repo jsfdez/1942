@@ -19,11 +19,14 @@ public:
         PlayerType = Qt::UserRole + 1,
         EnemyType,
         BulletType,
+        EnemyBulletType,
         BackgroundType,
         PauseType,
     };
 
     GameScene(QObject *parent = 0);
+
+    bool isPaused() const;
 
 public slots:
     void spawnEnemies(GraphicsEnemyObject::EnemyType type, bool inverted);
@@ -35,8 +38,11 @@ protected:
 private slots:
     void update();
     void planeShot(QVector<QPair<QPoint, QVector2D>> bullets);
+    void planeExploded();
 
 private:
+    void showPauseText(bool show);
+
     GraphicsPlayerObject *m_player = nullptr;
     bool m_paused = false;
     quint32 m_spawnEnemiesMaxTicks = 2 * FPS;

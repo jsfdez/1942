@@ -28,6 +28,11 @@ GameScene::GameScene(QObject *parent)
     spawnPlayer();
 }
 
+bool GameScene::isPaused() const
+{
+    return m_paused;
+}
+
 void GameScene::spawnEnemies(GraphicsEnemyObject::EnemyType type, bool inverted)
 {
     QEasingCurve::Type curveType;
@@ -49,7 +54,8 @@ void GameScene::spawnEnemies(GraphicsEnemyObject::EnemyType type, bool inverted)
     addItem(enemy);
     connect(enemy, &GraphicsEnemyObject::cannonTriggered, this,
         &GameScene::planeShot);
-
+    connect(enemy, &GraphicsEnemyObject::exploded, this,
+        &GameScene::planeExploded);
 }
 
 void GameScene::spawnPlayer()
@@ -76,12 +82,12 @@ void GameScene::keyPressEvent(QKeyEvent *event)
     case Qt::Key_P:
         if(m_paused)
         {
-            delete m_pauseItem;
+            showPauseText(false);
             m_paused = false;
         }
         else
         {
-            m_pauseItem = addPixmap(PixmapCache::pauseText());
+            showPauseText(true);
             m_paused = true;
         }
         break;
@@ -132,7 +138,8 @@ void GameScene::update()
                 {
                     const auto planeRect = (*it)->sceneBoundingRect();
                     auto plane = qgraphicsitem_cast<GraphicsPlayerObject*>(*it);
-                    if(plane->status() == GraphicsPlayerObject::Status::Alive
+                    const auto status = plane->status();
+                    if(status == AbstractGraphicsPlaneObject::Status::Alive
                        && planeRect.contains(rect))
                     {
                         plane->impact(100);
@@ -159,7 +166,34 @@ void GameScene::planeShot(QVector<QPair<QPoint, QVector2D>> bullets)
 {
     for(auto& pair : bullets)
     {
-        auto bullet = new GraphicsBulletItem(pair.first, pair.second);
+        const auto s = static_cast<AbstractGraphicsPlaneObject*>(sender());
+        auto bullet = new GraphicsBulletItem(pair.first, pair.second,
+            s->type() == PlayerType);
         addItem(bullet);
+    }
+}
+
+void GameScene::planeExploded()
+{
+    auto plane = static_cast<AbstractGraphicsPlaneObject*>(sender());
+    if(plane->type() == PlayerType);
+    else
+    {
+        m_hudObject->addScore(10);
+    }
+}
+
+void GameScene::showPauseText(bool show)
+{
+    if(show)
+    {
+        m_pauseItem = addPixmap(PixmapCache::pauseText());
+        const auto center = m_pauseItem->boundingRect().center();
+        m_pauseItem->setPos(width() / 2 - center.x(),
+            height() / 2 - center.y());
+    }
+    else
+    {
+        delete m_pauseItem;
     }
 }

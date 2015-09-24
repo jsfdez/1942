@@ -9,5 +9,6 @@
         <file>explosion.png</file>
         <file>background.png</file>
         <file>font.png</file>
+        <file>enemy-bullet.png</file>
     </qresource>
 </RCC>

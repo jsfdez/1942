@@ -9,16 +9,24 @@
 #include "pixmapcache.h"
 
 GraphicsBulletItem::GraphicsBulletItem(const QPoint &pos,
-    const QVector2D &direction, QGraphicsItem *parent)
+    const QVector2D &direction, bool playerBullet, QGraphicsItem *parent)
 : QGraphicsItem(parent)
 , m_direction(direction)
+, m_playerBullet(playerBullet)
 {
     setPos(pos);
 }
 
+int GraphicsBulletItem::type() const
+{
+    return m_playerBullet ? GameScene::BulletType : GameScene::EnemyBulletType;
+}
+
 QRectF GraphicsBulletItem::boundingRect() const
 {
-    decltype(boundingRect()) rect = PixmapCache::bullet().rect();
+    auto pixmap = m_playerBullet ? PixmapCache::bullet()
+        : PixmapCache::enemyBullet();
+    decltype(boundingRect()) rect = pixmap.rect();
     return rect;
 }
 
@@ -27,7 +35,8 @@ void GraphicsBulletItem::paint(QPainter *painter,
 {
     if (scene()->sceneRect().contains(option->exposedRect.translated(pos())))
     {
-        auto pixmap = PixmapCache::bullet();
+        auto pixmap = m_playerBullet ? PixmapCache::bullet()
+            : PixmapCache::enemyBullet();
         painter->drawPixmap(0, 0, pixmap);
     }
 }
@@ -40,9 +49,4 @@ void GraphicsBulletItem::advance(int phase)
 		p += m_direction.toPoint() * k_speed;
 		setPos(p);
     }
-}
-
-int GraphicsBulletItem::type() const
-{
-    return GameScene::BulletType;
 }
