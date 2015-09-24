@@ -13,13 +13,6 @@ AbstractGraphicsPlaneObject::AbstractGraphicsPlaneObject(QGraphicsItem *parent)
     auto effect = new QGraphicsDropShadowEffect;
     effect->setColor(QColor(0, 0, 0, 128));
     setGraphicsEffect(effect);
-	m_blinkTimer.setInterval(100);
-	m_blinkTimer.setSingleShot(false);
-	connect(&m_blinkTimer, &QTimer::timeout, [&]()
-	{
-        if(--m_blinkCount == 0)
-			m_blinkTimer.stop();
-	});
 }
 
 AbstractGraphicsPlaneObject::Status AbstractGraphicsPlaneObject::status() const
@@ -38,9 +31,9 @@ void AbstractGraphicsPlaneObject::paint(QPainter *painter,
     const QStyleOptionGraphicsItem*, QWidget*)
 {
     painter->save();
-    const auto sceneTopLeft = mapFromScene(0, GameScene::HudHeight);
+    const auto sceneTopLeft = mapFromScene(0, HUD_HEIGHT);
     const auto sceneSize = scene()->sceneRect().size().expandedTo(QSizeF(0,
-        -GameScene::HudHeight));
+        - HUD_HEIGHT));
     QRectF clipRect(sceneTopLeft, sceneSize);
     painter->setClipRect(clipRect);
     switch(m_status)
@@ -49,7 +42,7 @@ void AbstractGraphicsPlaneObject::paint(QPainter *painter,
     {
         const auto asset = pixmap();
 		auto frame = m_frame * asset.width() / 4;
-		if(m_blinkCount % 2 != 0)
+        if(m_blinkCount / 5 % 2 != 0)
 			frame = 3 * asset.width() / 4;
 		const QRect source(frame, 0, asset.width() / 4, asset.height());
         painter->drawPixmap(boundingRect(), asset, source);
@@ -82,13 +75,42 @@ void AbstractGraphicsPlaneObject::advance(int phase)
         }
         else
             ++m_frame;
+
+        if (m_blinkCount && --m_blinkCount == 0)
+            m_invencible = false;
         update();
     }
     else if (status() == Status::Alive) move();
 }
 
+void AbstractGraphicsPlaneObject::blink()
+{
+    m_blinkCount = RESPAWN_BLINK;
+}
+
+bool AbstractGraphicsPlaneObject::isInvencible() const
+{
+    return m_invencible;
+}
+
+void AbstractGraphicsPlaneObject::setInvencible(bool value)
+{
+    if(value != m_invencible)
+    {
+        m_invencible = value;
+        emit invencibleChanged(value);
+    }
+}
+
+quint32 AbstractGraphicsPlaneObject::health() const
+{
+    return m_health;
+}
+
 void AbstractGraphicsPlaneObject::impact(qint32 damage)
 {
+    if(isInvencible()) return;
+
     m_health = qMax(0, m_health - damage);
     if(!m_health)
     {
@@ -96,11 +118,7 @@ void AbstractGraphicsPlaneObject::impact(qint32 damage)
         graphicsEffect()->setEnabled(false);
         m_frame = 0;
     }
-	else
-	{
-		m_blinkTimer.start();
-		m_blinkCount = k_maxBlink;
-	}
+    else m_blinkCount = DAMAGE_BLINK;
     emit damaged(m_health);
 }
 

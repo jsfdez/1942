@@ -5,6 +5,7 @@
 #include <QPainter>
 #include <QKeyEvent>
 
+#include "defines.h"
 #include "gamescene.h"
 #include "pixmapcache.h"
 
@@ -13,7 +14,7 @@ GraphicsEnemyObject::GraphicsEnemyObject(EnemyType type,
 : AbstractGraphicsPlaneObject(parent)
 , m_curve(easingCurve)
 , m_inverted(inverted)
-, k_triggerTicks((qrand() % 1500 + 500) / GameScene::FPS)
+, k_triggerTicks((qrand() % 1500 + 500) / FPS)
 {
 	m_cannonCount = 1;
     setVisible(false);
@@ -34,14 +35,14 @@ void GraphicsEnemyObject::move()
     if(m_time > 1.0f)
         deleteLater();
 
-    const auto height = scene()->sceneRect().height() - GameScene::HudHeight;
+    const auto height = scene()->sceneRect().height() - HUD_HEIGHT;
     const auto planeWidth = boundingRect().width();
     const auto width = scene()->sceneRect().width() - planeWidth;
     const auto planeHeight = boundingRect().height();
     auto x = m_curve.valueForProgress(m_time) * width - planeWidth / 2;
     if (m_inverted)
         x = width - x;
-    setPos(x, m_time * (height + planeHeight + GameScene::HudHeight));
+    setPos(x, m_time * (height + planeHeight + HUD_HEIGHT));
 
     m_time += 0.005f;
     if(--m_triggerPendingTicks == 0)

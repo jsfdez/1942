@@ -33,7 +33,8 @@ HEADERS += \
     graphicsenemyobject.h \
     abstractgraphicsplaneobject.h \
     graphicsview.h \
-    graphicshudobject.h
+    graphicshudobject.h \
+    defines.h
 
 FORMS += \
     gamewindow.ui

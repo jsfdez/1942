@@ -6,22 +6,24 @@
 #include <QGraphicsScene>
 #include <QGraphicsEffect>
 
+#include "defines.h"
 #include "gamescene.h"
 #include "pixmapcache.h"
 
 GraphicsPlayerObject::GraphicsPlayerObject(const quint32 health, QGraphicsItem *parent)
 : AbstractGraphicsPlaneObject(parent)
-, k_triggerTicks(100 / GameScene::FPS)
+, k_triggerTicks(100 / FPS)
 {
     setFlag(GraphicsPlayerObject::ItemIsFocusable, true);
     m_health = health;
+    blink();
+    setInvencible(true);
 }
 
 void GraphicsPlayerObject::move()
 {
     auto p = pos();
-    const auto sceneRect = scene()->sceneRect().adjusted(0,
-        GameScene::HudHeight, 0, 0);
+    const auto sceneRect = scene()->sceneRect().adjusted(0, HUD_HEIGHT, 0, 0);
 
     m_triggerPendingTicks = qMax(0, --m_triggerPendingTicks);
 

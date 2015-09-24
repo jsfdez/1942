@@ -24,10 +24,18 @@ public:
         const QStyleOptionGraphicsItem *option, QWidget *widget) override;
     virtual void advance(int phase) override;
 
+    void blink();
+
+    bool isInvencible() const;
+    void setInvencible(bool value);
+
+    quint32 health() const;
+
 public slots:
     void impact(qint32 damage);
 
 signals:
+    void invencibleChanged(bool value);
     void exploded();
     void damaged(quint32 health);
     void cannonTriggered(QVector<QPair<QPoint, QVector2D>> bullets);
@@ -45,7 +53,6 @@ protected:
     quint8 m_frame = 0;
 
 private:
-	QTimer m_blinkTimer;
 	quint8 m_blinkCount = 0;
-    const quint8 k_maxBlink = 10;
+    bool m_invencible = false;
 };

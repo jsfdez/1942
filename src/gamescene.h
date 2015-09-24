@@ -3,6 +3,7 @@
 #include <QTimer>
 #include <QGraphicsScene>
 
+#include "defines.h"
 #include "graphicsenemyobject.h"
 
 class GraphicsHudObject;
@@ -13,10 +14,6 @@ class GameScene : public QGraphicsScene
 public:
     enum
     {
-        FPS = 30,
-        HudHeight = 50,
-        PlayerHealth = 500,
-
         PlayerType = Qt::UserRole + 1,
         EnemyType,
         BulletType,
@@ -48,6 +45,7 @@ private:
     bool m_paused = false;
     quint32 m_spawnEnemiesMaxTicks = 2 * FPS;
     quint32 m_spawnEnemiesTicks = m_spawnEnemiesMaxTicks;
+    quint32 m_respawnTicks = 0;
     QGraphicsItem *m_pauseItem = nullptr;
     GraphicsHudObject *m_hudObject;
 };

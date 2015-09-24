@@ -62,7 +62,6 @@ QPixmap PixmapCache::playerLife()
     QPixmap pixmap;
     if (!QPixmapCache::find(name, &pixmap))
     {
-        const auto playerRect = player().rect();
         pixmap = player().copy(0, 0, player().width() / 4,
             player().height()).scaledToHeight(GameScene::HudHeight - 4);
         QPixmapCache::insert(name, pixmap);

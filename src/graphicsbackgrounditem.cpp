@@ -16,7 +16,7 @@ GraphicsBackgroundItem::GraphicsBackgroundItem(QGraphicsItem *parent)
 
 QRectF GraphicsBackgroundItem::boundingRect() const
 {
-    return scene()->sceneRect().adjusted(0, GameScene::HudHeight, 0, 0);
+    return scene()->sceneRect().adjusted(0, HUD_HEIGHT, 0, 0);
 }
 
 void GraphicsBackgroundItem::paint(QPainter *painter,

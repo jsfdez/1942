@@ -16,8 +16,7 @@
 
 GameScene::GameScene(QObject *parent)
     : QGraphicsScene(0, 0, 600, 800, parent)
-    , m_player(new GraphicsPlayerObject(PlayerHealth))
-    , m_hudObject(new GraphicsHudObject(PlayerHealth))
+    , m_hudObject(new GraphicsHudObject(PLAYER_HEALTH))
 {
     addItem(new GraphicsBackgroundItem);
     addItem(m_hudObject);
@@ -60,22 +59,28 @@ void GameScene::spawnEnemies(GraphicsEnemyObject::EnemyType type, bool inverted)
 
 void GameScene::spawnPlayer()
 {
-    if (m_player)
-    {
-        const auto playerSize = m_player->boundingRect().size();
-        QPointF pos{
-            sceneRect().width() / 2 - playerSize.width() / 2,
-            sceneRect().height() - playerSize.height(),
-        };
-        m_player->setPos(pos);
-        addItem(m_player);
-        connect(m_player, &GraphicsPlayerObject::cannonTriggered, this,
-                &GameScene::planeShot);
-        connect(m_player, &GraphicsPlayerObject::damaged, m_hudObject,
-            &GraphicsHudObject::addScore);
-        connect(m_player, &GraphicsPlayerObject::damaged, m_hudObject,
-            &GraphicsHudObject::setHealth);
-    }
+    Q_ASSERT(!m_player);
+
+    addItem(m_player = new GraphicsPlayerObject(PLAYER_HEALTH));
+
+    const auto playerSize = m_player->boundingRect().size();
+    QPointF pos{
+        sceneRect().width() / 2 - playerSize.width() / 2,
+        sceneRect().height(),
+    };
+    m_player->setPos(pos);
+    m_hudObject->setHealth(m_player->health());
+    addItem(m_player);
+    connect(m_player, &GraphicsPlayerObject::cannonTriggered, this,
+        &GameScene::planeShot);
+    connect(m_player, &GraphicsPlayerObject::exploded, this,
+        &GameScene::planeExploded);
+    connect(m_player, &GraphicsPlayerObject::damaged, m_hudObject,
+        &GraphicsHudObject::addScore);
+    connect(m_player, &GraphicsPlayerObject::damaged, m_hudObject,
+        &GraphicsHudObject::setHealth);
+    connect(m_player, &GraphicsPlayerObject::exploded, m_hudObject,
+        &GraphicsHudObject::playerDeath);
     setFocusItem(m_player);
 }
 
@@ -118,8 +123,10 @@ void GameScene::update()
             planes.append(dynamic_cast<AbstractGraphicsPlaneObject*>(item));
         }
     }
-    if(player)
+    if(player && !player->isInvencible())
     {
+        Q_ASSERT(player == m_player);
+
         const auto playerRect = player->sceneBoundingRect();
         for(auto plane : planes)
             if(plane != player)
@@ -163,6 +170,9 @@ void GameScene::update()
     else if(m_spawnEnemiesTicks == m_spawnEnemiesMaxTicks / 2)
         spawnEnemies(GraphicsEnemyObject::EnemyType::Green, false);
 
+    if(m_respawnTicks && --m_respawnTicks == 0)
+        spawnPlayer();
+
     QGraphicsScene::advance();
 }
 
@@ -180,11 +190,13 @@ void GameScene::planeShot(QVector<QPair<QPoint, QVector2D>> bullets)
 void GameScene::planeExploded()
 {
     auto plane = static_cast<AbstractGraphicsPlaneObject*>(sender());
-    if(plane->type() == PlayerType);
-    else
+    if(plane->type() == PlayerType)
     {
-        m_hudObject->addScore(10);
+        m_respawnTicks = 2 * FPS;
+        m_player = nullptr;
     }
+    else
+        m_hudObject->addScore(10);
 }
 
 void GameScene::showPauseText(bool show)
