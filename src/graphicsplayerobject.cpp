@@ -20,7 +20,8 @@ GraphicsPlayerObject::GraphicsPlayerObject(QGraphicsItem *parent)
 void GraphicsPlayerObject::move()
 {
     auto p = pos();
-    const auto sceneRect = scene()->sceneRect();
+    const auto sceneRect = scene()->sceneRect().adjusted(0,
+        GameScene::HudHeight, 0, 0);
 
     m_triggerPendingTicks = qMax(0, --m_triggerPendingTicks);
 

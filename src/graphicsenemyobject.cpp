@@ -34,14 +34,14 @@ void GraphicsEnemyObject::move()
     if(m_time > 1.0f)
         deleteLater();
 
-    const auto height = scene()->sceneRect().height();
+    const auto height = scene()->sceneRect().height() - GameScene::HudHeight;
     const auto planeWidth = boundingRect().width();
     const auto width = scene()->sceneRect().width() - planeWidth;
     const auto planeHeight = boundingRect().height();
     auto x = m_curve.valueForProgress(m_time) * width - planeWidth / 2;
     if (m_inverted)
         x = width - x;
-    setPos(x, m_time * (height + planeHeight));
+    setPos(x, m_time * (height + planeHeight + GameScene::HudHeight));
 
     m_time += 0.005f;
     if(--m_triggerPendingTicks == 0)

@@ -4,6 +4,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsDropShadowEffect>
 
+#include "gamescene.h"
 #include "pixmapcache.h"
 
 AbstractGraphicsPlaneObject::AbstractGraphicsPlaneObject(QGraphicsItem *parent)
@@ -37,8 +38,10 @@ void AbstractGraphicsPlaneObject::paint(QPainter *painter,
     const QStyleOptionGraphicsItem*, QWidget*)
 {
     painter->save();
-    QRectF clipRect(scene()->sceneRect().topLeft(),
-        scene()->sceneRect().size());
+    const auto sceneTopLeft = mapFromScene(0, GameScene::HudHeight);
+    const auto sceneSize = scene()->sceneRect().size().expandedTo(QSizeF(0,
+        -GameScene::HudHeight));
+    QRectF clipRect(sceneTopLeft, sceneSize);
     painter->setClipRect(clipRect);
     switch(m_status)
     {
