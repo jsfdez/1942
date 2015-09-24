@@ -29,6 +29,7 @@ public slots:
 
 signals:
     void exploded();
+    void damaged(quint32 health);
     void cannonTriggered(QVector<QPair<QPoint, QVector2D>> bullets);
 
 protected:

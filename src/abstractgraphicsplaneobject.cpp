@@ -101,6 +101,7 @@ void AbstractGraphicsPlaneObject::impact(qint32 damage)
 		m_blinkTimer.start();
 		m_blinkCount = k_maxBlink;
 	}
+    emit damaged(m_health);
 }
 
 void AbstractGraphicsPlaneObject::trigger()

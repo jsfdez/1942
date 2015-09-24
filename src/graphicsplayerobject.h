@@ -1,5 +1,4 @@
-#ifndef GRAPHICSPLAYERITEM_H
-#define GRAPHICSPLAYERITEM_H
+#pragma once
 
 #include <QSet>
 #include <QTimer>
@@ -12,7 +11,7 @@ class GraphicsPlayerObject : public AbstractGraphicsPlaneObject
     Q_OBJECT
 
 public:
-    GraphicsPlayerObject(QGraphicsItem *parent = nullptr);
+    GraphicsPlayerObject(const quint32 health, QGraphicsItem *parent = nullptr);
 
     virtual int type() const override;
 
@@ -33,9 +32,6 @@ private:
     virtual void keyReleaseEvent(QKeyEvent *event);
 
     QSet<std::underlying_type<Qt::Key>::type> m_keys;
-//    QTimer m_triggerTimer;
     qint32 m_triggerPendingTicks;
     const qint32 k_triggerTicks;
 };
-
-#endif // GRAPHICSPLAYERITEM_H

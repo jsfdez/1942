@@ -9,12 +9,12 @@
 #include "gamescene.h"
 #include "pixmapcache.h"
 
-GraphicsPlayerObject::GraphicsPlayerObject(QGraphicsItem *parent)
+GraphicsPlayerObject::GraphicsPlayerObject(const quint32 health, QGraphicsItem *parent)
 : AbstractGraphicsPlaneObject(parent)
 , k_triggerTicks(100 / GameScene::FPS)
 {
-    m_health = 10000;
     setFlag(GraphicsPlayerObject::ItemIsFocusable, true);
+    m_health = health;
 }
 
 void GraphicsPlayerObject::move()

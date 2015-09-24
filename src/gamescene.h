@@ -15,6 +15,7 @@ public:
     {
         FPS = 30,
         HudHeight = 50,
+        PlayerHealth = 500,
 
         PlayerType = Qt::UserRole + 1,
         EnemyType,

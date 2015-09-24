@@ -6,8 +6,10 @@
 #include "gamescene.h"
 #include "pixmapcache.h"
 
-GraphicsHudObject::GraphicsHudObject(QGraphicsItem *parent)
+GraphicsHudObject::GraphicsHudObject(quint32 maxHealth, QGraphicsItem *parent)
 : QGraphicsObject(parent)
+, m_health(maxHealth)
+, m_maxHealth(maxHealth)
 {
     setZValue(1);
     connect(this, SIGNAL(scoreChanged(quint32)), this, SLOT(update()));
@@ -23,15 +25,25 @@ void GraphicsHudObject::paint(QPainter *painter,
 {
     Q_UNUSED(widget);
     painter->fillRect(option->rect, Qt::black);
-    painter->drawPixmap(0, 0, PixmapCache::hudNumber(m_score));
-}
+    const auto scorePixmap = PixmapCache::hudNumber(m_score);
+    painter->drawPixmap(0, 0, scorePixmap);
 
-void GraphicsHudObject::addScore(quint32 points)
-{
-    if(points)
+    QRectF healthBarRect(scorePixmap.rect().right() + 10, 3,
+        scorePixmap.rect().width(), GameScene::HudHeight - 6);
     {
-        m_score += points;
-        emit scoreChanged(m_score);
+        painter->save();
+        QBrush brush(Qt::green);
+        const auto ratio = static_cast<float>(m_health) / m_maxHealth;
+        painter->setBrush(brush);
+        painter->drawRect(healthBarRect.adjusted(0, 0,
+            -healthBarRect.width() + healthBarRect.width() * ratio, 0));
+        painter->restore();
+
+        painter->save();
+        QPen pen(Qt::white, 2);
+        painter->setPen(pen);
+        painter->drawRect(healthBarRect);
+        painter->restore();
     }
 }
 
@@ -47,6 +59,29 @@ void GraphicsHudObject::resetScore()
         m_score = 0;
         emit scoreChanged(m_score);
     }
+}
+
+void GraphicsHudObject::addScore(quint32 points)
+{
+    if(points)
+    {
+        m_score += points;
+        emit scoreChanged(m_score);
+    }
+}
+
+void GraphicsHudObject::setHealth(quint32 health)
+{
+    if(m_health != health)
+    {
+        m_health = health;
+        emit healthChanged(m_health);
+    }
+}
+
+quint32 GraphicsHudObject::health() const
+{
+    return m_health;
 }
 
 void GraphicsHudObject::update()

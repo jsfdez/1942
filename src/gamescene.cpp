@@ -16,8 +16,8 @@
 
 GameScene::GameScene(QObject *parent)
     : QGraphicsScene(0, 0, 600, 800, parent)
-    , m_player(new GraphicsPlayerObject)
-    , m_hudObject(new GraphicsHudObject)
+    , m_player(new GraphicsPlayerObject(PlayerHealth))
+    , m_hudObject(new GraphicsHudObject(PlayerHealth))
 {
     addItem(new GraphicsBackgroundItem);
     addItem(m_hudObject);
@@ -71,6 +71,10 @@ void GameScene::spawnPlayer()
         addItem(m_player);
         connect(m_player, &GraphicsPlayerObject::cannonTriggered, this,
                 &GameScene::planeShot);
+        connect(m_player, &GraphicsPlayerObject::damaged, m_hudObject,
+            &GraphicsHudObject::addScore);
+        connect(m_player, &GraphicsPlayerObject::damaged, m_hudObject,
+            &GraphicsHudObject::setHealth);
     }
     setFocusItem(m_player);
 }
@@ -125,7 +129,7 @@ void GameScene::update()
 
     for(auto item : items())
     {
-        if(item->type() == BulletType)
+        if(item->type() == BulletType || item->type() == EnemyBulletType)
         {
             const auto rect = item->boundingRect().translated(item->pos());
             if(!sceneRect().contains(rect))
@@ -137,7 +141,7 @@ void GameScene::update()
                     ++it)
                 {
                     const auto planeRect = (*it)->sceneBoundingRect();
-                    auto plane = qgraphicsitem_cast<GraphicsPlayerObject*>(*it);
+                    auto plane = qgraphicsitem_cast<AbstractGraphicsPlaneObject*>(*it);
                     const auto status = plane->status();
                     if(status == AbstractGraphicsPlaneObject::Status::Alive
                        && planeRect.contains(rect))
