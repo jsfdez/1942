@@ -112,6 +112,13 @@ void GameScene::keyPressEvent(QKeyEvent *event)
     }
 }
 
+void GameScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    Q_UNUSED(event);
+    if(m_gameOverItem)
+        emit restart();
+}
+
 void GameScene::update()
 {
     Q_ASSERT(sender() == findChild<QTimer*>());
@@ -240,11 +247,12 @@ void GameScene::showPauseText(bool show)
     }
 }
 
-void GameScene::showGameOverText()
+void GameScene::showGameOverText(quint32 score)
 {
     m_gameOverItem = addPixmap(PixmapCache::gameOverText());
     const auto center = m_gameOverItem->boundingRect().center();
     m_gameOverItem->setPos(width() / 2 - center.x(),
         height() / 2 - center.y());
     m_paused = true;
+    emit gameFinished(score);
 }

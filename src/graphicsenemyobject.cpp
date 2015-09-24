@@ -4,6 +4,7 @@
 #include <QTimer>
 #include <QPainter>
 #include <QKeyEvent>
+#include <QApplication>
 
 #include "defines.h"
 #include "gamescene.h"
@@ -23,15 +24,15 @@ GraphicsEnemyObject::GraphicsEnemyObject(EnemyType type,
     {
     case EnemyType::Green:
         m_pixmap = &PixmapCache::greenEnemy;
-        m_health = ENEMY_HEALTH;
+        m_maxHealth = m_health = ENEMY_HEALTH;
         break;
     case EnemyType::White:
         m_pixmap = &PixmapCache::whiteEnemy;
-        m_health = ENEMY_HEALTH;
+        m_maxHealth = m_health = ENEMY_HEALTH;
         break;
     case EnemyType::Boss:
         m_pixmap  = &PixmapCache::bossEnemy;
-        m_health = BOSS_HEALTH;
+        m_maxHealth = m_health = BOSS_HEALTH;
         m_cannonCount = 2;
         break;
     }
@@ -78,6 +79,30 @@ QRectF GraphicsEnemyObject::boundingRect() const
 GraphicsEnemyObject::EnemyType GraphicsEnemyObject::enemyType() const
 {
     return m_enemyType;
+}
+
+void GraphicsEnemyObject::paint(QPainter *painter,
+    const QStyleOptionGraphicsItem *option, QWidget *widget)
+{
+    AbstractGraphicsPlaneObject::paint(painter, option, widget);
+
+    if(qApp->property("displayEnemyHealthBars").toBool())
+    {
+        QRectF healthBarRect(0, 0, boundingRect().width(), 3);
+        painter->save();
+        const auto ratio = static_cast<float>(m_health) / m_maxHealth;
+        QBrush brush(ratio < 0.25f ? Qt::red : Qt::green);
+        painter->setBrush(brush);
+        painter->drawRect(healthBarRect.adjusted(0, 0,
+            -healthBarRect.width() + healthBarRect.width() * ratio, 0));
+        painter->restore();
+
+        painter->save();
+        QPen pen(Qt::white, 1);
+        painter->setPen(pen);
+        painter->drawRect(healthBarRect);
+        painter->restore();
+    }
 }
 
 QVector2D GraphicsEnemyObject::direction() const

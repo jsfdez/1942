@@ -15,11 +15,18 @@ public:
     explicit GameWindow(QWidget *parent = 0);
     ~GameWindow();
 
-private slots:
-    void on_actionNewGame_triggered();
-
 private:
+    void loadSettings();
+    void saveSettings();
+
     QScopedPointer<Ui::GameWindow> m_ui;
+    quint32 m_highScore = 0;
+
+private slots:
+    void newGame();
+    void showAbout();
+    void showAboutQt();
+    void toggleDisplayEnemyHealthBars(bool value);
 };
 
 #endif // GAMEWINDOW_H

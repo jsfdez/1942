@@ -28,6 +28,9 @@ public:
 
     EnemyType enemyType() const;
 
+    virtual void paint(QPainter *painter,
+        const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+
 protected:
     virtual QVector2D direction() const override;
 

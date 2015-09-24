@@ -15,7 +15,7 @@ GraphicsPlayerObject::GraphicsPlayerObject(const quint32 health, QGraphicsItem *
 , k_triggerTicks(100 / FPS)
 {
     setFlag(GraphicsPlayerObject::ItemIsFocusable, true);
-    m_health = health;
+    m_maxHealth = m_health = health;
     blink();
     setInvencible(true);
 }

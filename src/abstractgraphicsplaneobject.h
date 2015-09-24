@@ -48,6 +48,7 @@ protected:
 
     Status m_status = Status::Alive;
     qint32 m_health = 200;
+    qint32 m_maxHealth;
     quint8 m_cannonCount = 2;
     quint8 k_speed = 10;
     quint8 m_frame = 0;

@@ -2,6 +2,8 @@
 
 #include <QGraphicsObject>
 
+#include "defines.h"
+
 class GraphicsHudObject : public QGraphicsObject
 {
     Q_OBJECT
@@ -34,8 +36,5 @@ private:
     quint32 m_score = 0;
     quint32 m_health;
     quint32 m_maxHealth;
-    quint32 m_lifesRemaining = 3;
-
-private slots:
-    void update();
+    quint32 m_lifesRemaining = PLAYER_LIFES;
 };

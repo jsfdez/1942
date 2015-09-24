@@ -13,6 +13,8 @@ class GraphicsGameOverItem;
 
 class GameScene : public QGraphicsScene
 {
+    Q_OBJECT
+
 public:
     enum
     {
@@ -29,12 +31,17 @@ public:
 
     bool isPaused() const;
 
+signals:
+    void gameFinished(quint32 score);
+    void restart();
+
 public slots:
     void spawnEnemies(GraphicsEnemyObject::EnemyType type, bool inverted);
     void spawnPlayer();
 
 protected:
-    virtual void keyPressEvent(QKeyEvent *event);
+    virtual void keyPressEvent(QKeyEvent *event) override;
+    virtual void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 
 private slots:
     void update();
@@ -43,7 +50,7 @@ private slots:
 
 private:
     void showPauseText(bool show);
-    void showGameOverText();
+    void showGameOverText(quint32 score);
 
     GraphicsPlayerObject *m_player = nullptr;
     bool m_paused = false;
@@ -51,6 +58,6 @@ private:
     quint32 m_spawnEnemiesTicks = m_spawnEnemiesMaxTicks;
     quint32 m_respawnTicks = 0;
     GraphicsHudObject *m_hudObject = nullptr;
-    QGraphicsItem* m_pauseItem;
-    QGraphicsItem* m_gameOverItem;
+    QGraphicsItem* m_pauseItem = nullptr;
+    QGraphicsItem* m_gameOverItem = nullptr;
 };

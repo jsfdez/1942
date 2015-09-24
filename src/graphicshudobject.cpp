@@ -12,7 +12,6 @@ GraphicsHudObject::GraphicsHudObject(quint32 maxHealth, QGraphicsItem *parent)
 , m_maxHealth(maxHealth)
 {
     setZValue(1);
-    connect(this, SIGNAL(scoreChanged(quint32)), this, SLOT(update()));
 }
 
 QRectF GraphicsHudObject::boundingRect() const
@@ -32,8 +31,8 @@ void GraphicsHudObject::paint(QPainter *painter,
         scorePixmap.rect().width(), HUD_HEIGHT - 6);
     {
         painter->save();
-        QBrush brush(Qt::green);
         const auto ratio = static_cast<float>(m_health) / m_maxHealth;
+        QBrush brush(ratio < 0.25f ? Qt::red : Qt::green);
         painter->setBrush(brush);
         painter->drawRect(healthBarRect.adjusted(0, 0,
             -healthBarRect.width() + healthBarRect.width() * ratio, 0));
@@ -65,6 +64,7 @@ void GraphicsHudObject::resetScore()
     {
         m_score = 0;
         emit scoreChanged(m_score);
+        update();
     }
 }
 
@@ -83,22 +83,20 @@ void GraphicsHudObject::setHealth(quint32 health)
     {
         m_health = health;
         emit healthChanged(m_health);
+        update();
     }
 }
 
 void GraphicsHudObject::playerDeath()
 {
     if(--m_lifesRemaining == 0)
+    {
         emit gameOver(m_score);
+        update();
+    }
 }
 
 quint32 GraphicsHudObject::health() const
 {
     return m_health;
 }
-
-void GraphicsHudObject::update()
-{
-    QGraphicsObject::update();
-}
-
