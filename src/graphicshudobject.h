@@ -23,15 +23,18 @@ public:
 public slots:
     void addScore(quint32 points);
     void setHealth(quint32 health);
+    void playerDeath();
 
 signals:
     void scoreChanged(quint32 current);
     void healthChanged(quint32 health);
+    void gameOver(quint32 current);
 
 private:
     quint32 m_score = 0;
     quint32 m_health;
     quint32 m_maxHealth;
+    quint32 m_lifesRemaining = 3;
 
 private slots:
     void update();

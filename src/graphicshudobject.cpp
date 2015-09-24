@@ -28,7 +28,7 @@ void GraphicsHudObject::paint(QPainter *painter,
     const auto scorePixmap = PixmapCache::hudNumber(m_score);
     painter->drawPixmap(0, 0, scorePixmap);
 
-    QRectF healthBarRect(scorePixmap.rect().right() + 10, 3,
+    QRectF healthBarRect(scorePixmap.rect().right() + 2, 3,
         scorePixmap.rect().width(), GameScene::HudHeight - 6);
     {
         painter->save();
@@ -44,6 +44,13 @@ void GraphicsHudObject::paint(QPainter *painter,
         painter->setPen(pen);
         painter->drawRect(healthBarRect);
         painter->restore();
+    }
+
+    for(quint32 i = 0u; i < m_lifesRemaining; i++)
+    {
+        const auto pixmap = PixmapCache::playerLife();
+        painter->drawPixmap(
+            sceneBoundingRect().width() - pixmap.width() * (i + 1), 0, pixmap);
     }
 }
 
@@ -77,6 +84,12 @@ void GraphicsHudObject::setHealth(quint32 health)
         m_health = health;
         emit healthChanged(m_health);
     }
+}
+
+void GraphicsHudObject::playerDeath()
+{
+    if(--m_lifesRemaining == 0)
+        emit gameOver(m_score);
 }
 
 quint32 GraphicsHudObject::health() const

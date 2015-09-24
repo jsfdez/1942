@@ -14,6 +14,7 @@ struct PixmapCache
     static QPixmap background();
     static QPixmap sea();
     static QPixmap player();
+    static QPixmap playerLife();
 	static QPixmap greenEnemy();
     static QPixmap whiteEnemy();
     static QPixmap bossEnemy();
