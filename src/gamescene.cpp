@@ -4,6 +4,7 @@
 #include <QTimer>
 #include <QPixmap>
 #include <QPainter>
+#include <QKeyEvent>
 #include <QGraphicsPixmapItem>
 
 #include "pixmapcache.h"
@@ -17,29 +18,20 @@ GameScene::GameScene(QObject *parent)
     , m_player(new GraphicsPlayerObject)
 {
     addItem(new GraphicsBackgroundItem);
-    {
-        const auto playerSize = m_player->boundingRect().size();
-        QPointF pos{
-            sceneRect().width() / 2 - playerSize.width() / 2,
-            sceneRect().height() - playerSize.height(),
-        };
-        m_player->setPos(pos);
-    }
-    addItem(m_player);
-    connect(m_player, &GraphicsPlayerObject::cannonTriggered, this,
-        &GameScene::planeShot);
-
-    setFocusItem(m_player);
-
     auto timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &GameScene::update);
-	timer->start(1000 / 30);
+    timer->start(1000 / FPS);
+
 
 	auto spawnEnemiesTyper = new QTimer(this);
 	connect(spawnEnemiesTyper, &QTimer::timeout, this,
 		&GameScene::spawnEnemies);
 	spawnEnemiesTyper->start(5000);
-	spawnEnemies();
+
+    addPixmap(PixmapCache::pauseText());
+
+    spawnPlayer();
+    spawnEnemies();
 }
 
 void GameScene::spawnEnemies()
@@ -56,7 +48,36 @@ void GameScene::spawnEnemies()
 		curve, false);
 	connect(green, &GraphicsEnemyObject::cannonTriggered, this,
 		&GameScene::planeShot);
-	QTimer::singleShot(1000, std::bind(&GameScene::addItem, this, green));
+    QTimer::singleShot(1000, std::bind(&GameScene::addItem, this, green));
+}
+
+void GameScene::spawnPlayer()
+{
+    if (m_player)
+    {
+        const auto playerSize = m_player->boundingRect().size();
+        QPointF pos{
+            sceneRect().width() / 2 - playerSize.width() / 2,
+            sceneRect().height() - playerSize.height(),
+        };
+        m_player->setPos(pos);
+        addItem(m_player);
+        connect(m_player, &GraphicsPlayerObject::cannonTriggered, this,
+                &GameScene::planeShot);
+    }
+    setFocusItem(m_player);
+}
+
+void GameScene::keyPressEvent(QKeyEvent *event)
+{
+    switch(event->key())
+    {
+    case Qt::Key_P:
+        m_paused = !m_paused;
+        break;
+    default:
+        QGraphicsScene::keyPressEvent(event);
+    }
 }
 
 void GameScene::update()

@@ -11,17 +11,18 @@
 
 GraphicsPlayerObject::GraphicsPlayerObject(QGraphicsItem *parent)
 : AbstractGraphicsPlaneObject(parent)
+, k_triggerTicks(100 / GameScene::FPS)
 {
     m_health = 10000;
     setFlag(GraphicsPlayerObject::ItemIsFocusable, true);
-    m_triggerTimer.setSingleShot(false);
-    m_triggerTimer.setInterval(100);
 }
 
 void GraphicsPlayerObject::move()
 {
     auto p = pos();
     const auto sceneRect = scene()->sceneRect();
+
+    m_triggerPendingTicks = qMax(0, --m_triggerPendingTicks);
 
     // Horizontal movement
     if (m_keys.contains(Qt::Key_Left) && m_keys.contains(Qt::Key_Right));
@@ -45,12 +46,25 @@ void GraphicsPlayerObject::move()
         p.setY(qMin(p.y() + k_speed, bottom));
     }
 
+    if(m_keys.contains(Qt::Key_Space))
+        trigger();
+
     setPos(p);
 }
 
 int GraphicsPlayerObject::type() const
 {
     return GameScene::PlayerType;
+}
+
+void GraphicsPlayerObject::pause()
+{
+
+}
+
+void GraphicsPlayerObject::resume()
+{
+
 }
 
 QVector2D GraphicsPlayerObject::direction() const
@@ -65,8 +79,21 @@ QPixmap GraphicsPlayerObject::pixmap() const
 
 void GraphicsPlayerObject::trigger()
 {
-    if (!m_triggerTimer.isActive())
+    if (m_triggerPendingTicks == 0)
+    {
         AbstractGraphicsPlaneObject::trigger();
+        m_triggerPendingTicks = k_triggerTicks;
+    }
+}
+
+void GraphicsPlayerObject::focusInEvent(QFocusEvent *)
+{
+    emit focusReceived();
+}
+
+void GraphicsPlayerObject::focusOutEvent(QFocusEvent *)
+{
+    emit focusLost();
 }
 
 void GraphicsPlayerObject::keyPressEvent(QKeyEvent *event)
@@ -77,11 +104,8 @@ void GraphicsPlayerObject::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Right:
     case Qt::Key_Up:
     case Qt::Key_Down:
-        m_keys.insert(event->key());
-        break;
     case Qt::Key_Space:
-        trigger();
-        m_triggerTimer.start();
+        m_keys.insert(event->key());
         event->accept();
         break;
     case Qt::Key_S:
@@ -101,12 +125,10 @@ void GraphicsPlayerObject::keyReleaseEvent(QKeyEvent *event)
     case Qt::Key_Right:
     case Qt::Key_Up:
     case Qt::Key_Down:
+    case Qt::Key_Space:
         m_keys.remove(event->key());
         event->accept();
         break;
-    case Qt::Key_Space:
-        m_triggerTimer.stop();
-        event->accept();
     default:
         event->ignore();
     }

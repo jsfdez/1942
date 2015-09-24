@@ -23,6 +23,8 @@ public:
 
     virtual void move() override;
     virtual int type() const override;
+    virtual void pause() override;
+    virtual void resume() override;
 
     virtual QRectF boundingRect() const;
 
@@ -36,4 +38,6 @@ private:
     QEasingCurve m_curve;
 	qreal m_time = 0.0f;
 	bool m_inverted = false;
+    quint32 m_triggerPendingTicks;
+    const quint32 k_triggerTicks;
 };

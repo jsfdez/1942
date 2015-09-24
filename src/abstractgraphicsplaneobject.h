@@ -18,6 +18,8 @@ public:
     AbstractGraphicsPlaneObject(QGraphicsItem* parent = nullptr);
 
     Status status() const;
+    virtual void pause() = 0;
+    virtual void resume() = 0;
 
     virtual QRectF boundingRect() const override;
     virtual void paint(QPainter *painter,

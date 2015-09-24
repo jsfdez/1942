@@ -15,6 +15,12 @@ public:
     GraphicsPlayerObject(QGraphicsItem *parent = nullptr);
 
     virtual int type() const override;
+    virtual void pause() override;
+    virtual void resume() override;
+
+signals:
+    void focusLost();
+    void focusReceived();
 
 protected:
     virtual QVector2D direction() const override;
@@ -23,11 +29,15 @@ protected:
     virtual void trigger() override;
 
 private:
+    virtual void focusInEvent(QFocusEvent* event);
+    virtual void focusOutEvent(QFocusEvent* event);
     virtual void keyPressEvent(QKeyEvent *event);
     virtual void keyReleaseEvent(QKeyEvent *event);
 
     QSet<std::underlying_type<Qt::Key>::type> m_keys;
-    QTimer m_triggerTimer;
+//    QTimer m_triggerTimer;
+    qint32 m_triggerPendingTicks;
+    const qint32 k_triggerTicks;
 };
 
 #endif // GRAPHICSPLAYERITEM_H

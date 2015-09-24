@@ -13,6 +13,7 @@ GraphicsEnemyObject::GraphicsEnemyObject(EnemyType type,
 : AbstractGraphicsPlaneObject(parent)
 , m_curve(easingCurve)
 , m_inverted(inverted)
+, k_triggerTicks((qrand() % 1500 + 500) / GameScene::FPS)
 {
 	m_cannonCount = 1;
     setVisible(false);
@@ -23,9 +24,7 @@ GraphicsEnemyObject::GraphicsEnemyObject(EnemyType type,
     case EnemyType::Boss: m_pixmap  = &PixmapCache::bossEnemy;  break;
     }
 
-    auto timer = new QTimer(this);
-	timer->start(qrand() % 2700 + 300);
-	connect(timer, &QTimer::timeout, this, &GraphicsEnemyObject::trigger);
+    m_triggerPendingTicks = k_triggerTicks;
 }
 
 void GraphicsEnemyObject::move()
@@ -45,11 +44,24 @@ void GraphicsEnemyObject::move()
     setPos(x, m_time * (height + planeHeight));
 
     m_time += 0.005f;
+    if(--m_triggerPendingTicks == 0)
+    {
+        trigger();
+        m_triggerPendingTicks = k_triggerTicks;
+    }
 }
 
 int GraphicsEnemyObject::type() const
 {
     return GameScene::EnemyType;
+}
+
+void GraphicsEnemyObject::pause()
+{
+}
+
+void GraphicsEnemyObject::resume()
+{
 }
 
 QRectF GraphicsEnemyObject::boundingRect() const

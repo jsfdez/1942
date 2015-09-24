@@ -2,49 +2,74 @@
 
 #include <QString>
 #include <QPixmap>
+#include <QPainter>
 #include <QPixmapCache>
 
-const auto k_seaAsset = QStringLiteral(":/asset/sea.png");
-const auto k_playerAsset = QStringLiteral(":/asset/player.png");
-const auto k_enemyAsset = QStringLiteral(":/asset/enemy.png");
-const auto k_whiteEnemyAsset = QStringLiteral(":/asset/shooting-enemy.png");
-const auto k_bossEnemyAsset = QStringLiteral(":/asset/boss.png");
-const auto k_bulletAsset = QStringLiteral(":/asset/bullet.png");
-const auto k_explosion = QStringLiteral(":/asset/explosion.png");
+QPixmap PixmapCache::character(const QChar &character)
+{
+    auto p = pixmap(QStringLiteral(":/asset/font.png"));
+    return p.copy(character.cell() % 16 * 64, character.cell() / 16 * 64, 64,
+        64);
+}
+
+QPixmap PixmapCache::background()
+{
+    return pixmap(QStringLiteral(":/asset/background.png"));
+}
 
 QPixmap PixmapCache::sea()
 {
-    return pixmap(k_seaAsset);
+    return pixmap(QStringLiteral(":/asset/sea.png"));
 }
 
 QPixmap PixmapCache::player()
 {
-	return pixmap(k_playerAsset);
+    return pixmap(QStringLiteral(":/asset/player.png"));
 }
 
 QPixmap PixmapCache::greenEnemy()
 {
-    return pixmap(k_enemyAsset);
+    return pixmap(QStringLiteral(":/asset/enemy.png"));
 }
 
 QPixmap PixmapCache::whiteEnemy()
 {
-    return pixmap(k_whiteEnemyAsset);
+    return pixmap(QStringLiteral(":/asset/shooting-enemy.png"));
 }
 
 QPixmap PixmapCache::bossEnemy()
 {
-    return pixmap(k_bossEnemyAsset);
+    return pixmap(QStringLiteral(":/asset/boss.png"));
 }
 
 QPixmap PixmapCache::bullet()
 {
-    return pixmap(k_bulletAsset);
+    return pixmap(QStringLiteral(":/asset/bullet.png"));
 }
 
 QPixmap PixmapCache::explosion()
 {
-    return pixmap(k_explosion);
+    return pixmap(QStringLiteral(":/asset/explosion.png"));
+}
+
+QPixmap PixmapCache::pauseText()
+{
+    QPixmap pixmap;
+    const QString text = "PAUSE";
+    if (!QPixmapCache::find(text, &pixmap))
+    {
+        pixmap = QPixmap(text.size() * 64, 64);
+        pixmap.fill(Qt::transparent);
+        {
+            QPainter painter(&pixmap);
+            for(int i = 0; i < text.size(); ++i)
+            {
+                painter.drawPixmap(i * 64, 0, 64, 64, character(text.at(i)));
+            }
+        }
+        QPixmapCache::insert(text, pixmap);
+    }
+    return pixmap;
 }
 
 QPixmap PixmapCache::pixmap(const QString &path)

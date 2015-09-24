@@ -10,6 +10,8 @@ class GameScene : public QGraphicsScene
 public:
     enum
     {
+        FPS = 30,
+
         PlayerType = Qt::UserRole + 1,
         EnemyType,
         BulletType,
@@ -20,6 +22,10 @@ public:
 
 public slots:
 	void spawnEnemies();
+    void spawnPlayer();
+
+protected:
+    virtual void keyPressEvent(QKeyEvent *event);
 
 private slots:
     void update();
@@ -27,6 +33,7 @@ private slots:
 
 private:
     GraphicsPlayerObject *m_player = nullptr;
+    bool m_paused = false;
 };
 
 #endif // GAMESCENE_H

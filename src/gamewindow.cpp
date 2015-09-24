@@ -15,7 +15,7 @@ GameWindow::GameWindow(QWidget *parent)
     , m_ui(new Ui::GameWindow)
 {
     m_ui->setupUi(this);
-//    m_ui->graphicsView->setViewport(new QOpenGLWidget(this));
+    m_ui->graphicsView->setViewport(new QOpenGLWidget(this));
 
     QTimer::singleShot(0, this, &GameWindow::on_actionNewGame_triggered);
 }

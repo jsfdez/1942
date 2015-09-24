@@ -103,24 +103,25 @@ void AbstractGraphicsPlaneObject::impact(qint32 damage)
 void AbstractGraphicsPlaneObject::trigger()
 {
     const auto dir = direction();
-	const auto x = pos().x(), y = pos().y();
+    const auto x = pos().x() - 1;
 	const auto width = boundingRect().size().width();
 	const auto height = boundingRect().size().height();
-	const auto dirY = dir.y() * (height + 20);
+    const auto dirY = dir.y() * height / 2;
+    const auto y = sceneBoundingRect().center().y() + dirY;
     QVector<QPair<QPoint, QVector2D>> bullets(m_cannonCount);
     switch(m_cannonCount)
     {
 	case 1:
 	{
-		QPoint point(x + width / 2, y + dirY);
+        QPoint point(x + width / 2, y/* + dirY*/);
 		bullets[0].first = point;
 		bullets[0].second = dir;
 		break;
 	}
     case 2:
-		bullets[0].first = QPoint(x + width / 4, y + dirY);
+        bullets[0].first = QPoint(x + width / 4, y/* + dirY*/);
         bullets[0].second = dir;
-		bullets[1].first = QPoint(x + width * 3 / 4, y + dirY);
+        bullets[1].first = QPoint(x + width * 3 / 4, y/* + dirY*/);
         bullets[1].second = dir;
         break;
     default:
