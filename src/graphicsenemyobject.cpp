@@ -56,14 +56,6 @@ int GraphicsEnemyObject::type() const
     return GameScene::EnemyType;
 }
 
-void GraphicsEnemyObject::pause()
-{
-}
-
-void GraphicsEnemyObject::resume()
-{
-}
-
 QRectF GraphicsEnemyObject::boundingRect() const
 {
     auto rect = AbstractGraphicsPlaneObject::boundingRect();

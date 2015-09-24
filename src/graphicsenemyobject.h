@@ -23,8 +23,6 @@ public:
 
     virtual void move() override;
     virtual int type() const override;
-    virtual void pause() override;
-    virtual void resume() override;
 
     virtual QRectF boundingRect() const;
 

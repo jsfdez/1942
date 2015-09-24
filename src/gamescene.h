@@ -1,8 +1,11 @@
-#ifndef GAMESCENE_H
-#define GAMESCENE_H
+#pragma once
 
+#include <QTimer>
 #include <QGraphicsScene>
 
+#include "graphicsenemyobject.h"
+
+class GraphicsHudObject;
 class GraphicsPlayerObject;
 
 class GameScene : public QGraphicsScene
@@ -11,17 +14,19 @@ public:
     enum
     {
         FPS = 30,
+        HudHeight = 50,
 
         PlayerType = Qt::UserRole + 1,
         EnemyType,
         BulletType,
         BackgroundType,
+        PauseType,
     };
 
     GameScene(QObject *parent = 0);
 
 public slots:
-	void spawnEnemies();
+    void spawnEnemies(GraphicsEnemyObject::EnemyType type, bool inverted);
     void spawnPlayer();
 
 protected:
@@ -34,6 +39,8 @@ private slots:
 private:
     GraphicsPlayerObject *m_player = nullptr;
     bool m_paused = false;
+    quint32 m_spawnEnemiesMaxTicks = 2 * FPS;
+    quint32 m_spawnEnemiesTicks = m_spawnEnemiesMaxTicks;
+    QGraphicsItem *m_pauseItem = nullptr;
+    GraphicsHudObject *m_hudObject;
 };
-
-#endif // GAMESCENE_H

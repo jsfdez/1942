@@ -11,11 +11,12 @@
 GraphicsBackgroundItem::GraphicsBackgroundItem(QGraphicsItem *parent)
     : QGraphicsItem(parent)
 {
+    setZValue(-1);
 }
 
 QRectF GraphicsBackgroundItem::boundingRect() const
 {
-    return scene()->sceneRect();
+    return scene()->sceneRect().adjusted(0, GameScene::HudHeight, 0, 0);
 }
 
 void GraphicsBackgroundItem::paint(QPainter *painter,

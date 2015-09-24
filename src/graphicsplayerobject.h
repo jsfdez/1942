@@ -15,8 +15,6 @@ public:
     GraphicsPlayerObject(QGraphicsItem *parent = nullptr);
 
     virtual int type() const override;
-    virtual void pause() override;
-    virtual void resume() override;
 
 signals:
     void focusLost();

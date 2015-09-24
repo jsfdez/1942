@@ -8,6 +8,7 @@
 #include <QGraphicsPixmapItem>
 
 #include "pixmapcache.h"
+#include "graphicshudobject.h"
 #include "graphicsbulletitem.h"
 #include "graphicsenemyobject.h"
 #include "graphicsplayerobject.h"
@@ -16,39 +17,39 @@
 GameScene::GameScene(QObject *parent)
     : QGraphicsScene(0, 0, 600, 800, parent)
     , m_player(new GraphicsPlayerObject)
+    , m_hudObject(new GraphicsHudObject)
 {
     addItem(new GraphicsBackgroundItem);
+    addItem(m_hudObject);
     auto timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &GameScene::update);
     timer->start(1000 / FPS);
 
-
-	auto spawnEnemiesTyper = new QTimer(this);
-	connect(spawnEnemiesTyper, &QTimer::timeout, this,
-		&GameScene::spawnEnemies);
-	spawnEnemiesTyper->start(5000);
-
-    addPixmap(PixmapCache::pauseText());
-
     spawnPlayer();
-    spawnEnemies();
 }
 
-void GameScene::spawnEnemies()
+void GameScene::spawnEnemies(GraphicsEnemyObject::EnemyType type, bool inverted)
 {
-	auto type = static_cast<QEasingCurve::Type>(qrand() % 41);
-	QEasingCurve curve(type);
-    auto white = new GraphicsEnemyObject(GraphicsEnemyObject::EnemyType::White,
-        curve, true);
-    addItem(white);
-    connect(white, &GraphicsEnemyObject::cannonTriggered, this,
+    QEasingCurve::Type curveType;
+
+    switch (type)
+    {
+    case GraphicsEnemyObject::EnemyType::White:
+        curveType = static_cast<QEasingCurve::Type>(qrand() % 41);
+        break;
+    case GraphicsEnemyObject::EnemyType::Green:
+        curveType = static_cast<QEasingCurve::Type>(qrand() % 41);
+        break;
+    case GraphicsEnemyObject::EnemyType::Boss:
+        break;
+    }
+
+    QEasingCurve curve(curveType);
+    auto enemy = new GraphicsEnemyObject(type, curve, inverted);
+    addItem(enemy);
+    connect(enemy, &GraphicsEnemyObject::cannonTriggered, this,
         &GameScene::planeShot);
 
-    auto green = new GraphicsEnemyObject(GraphicsEnemyObject::EnemyType::Green,
-		curve, false);
-	connect(green, &GraphicsEnemyObject::cannonTriggered, this,
-		&GameScene::planeShot);
-    QTimer::singleShot(1000, std::bind(&GameScene::addItem, this, green));
 }
 
 void GameScene::spawnPlayer()
@@ -73,7 +74,16 @@ void GameScene::keyPressEvent(QKeyEvent *event)
     switch(event->key())
     {
     case Qt::Key_P:
-        m_paused = !m_paused;
+        if(m_paused)
+        {
+            delete m_pauseItem;
+            m_paused = false;
+        }
+        else
+        {
+            m_pauseItem = addPixmap(PixmapCache::pauseText());
+            m_paused = true;
+        }
         break;
     default:
         QGraphicsScene::keyPressEvent(event);
@@ -83,6 +93,8 @@ void GameScene::keyPressEvent(QKeyEvent *event)
 void GameScene::update()
 {
     Q_ASSERT(sender() == findChild<QTimer*>());
+
+    if(m_paused) return;
 
     GraphicsPlayerObject* player = nullptr;
     QList<AbstractGraphicsPlaneObject*> planes;
@@ -131,6 +143,14 @@ void GameScene::update()
             }
         }
     }
+
+    if(--m_spawnEnemiesTicks == 0)
+    {
+        spawnEnemies(GraphicsEnemyObject::EnemyType::White, true);
+        m_spawnEnemiesTicks = m_spawnEnemiesMaxTicks;
+    }
+    else if(m_spawnEnemiesTicks == m_spawnEnemiesMaxTicks / 2)
+        spawnEnemies(GraphicsEnemyObject::EnemyType::Green, false);
 
     QGraphicsScene::advance();
 }
