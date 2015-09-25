@@ -68,6 +68,7 @@
      <string>&amp;Options</string>
     </property>
     <addaction name="actionDisplayEnemyHealthBars"/>
+    <addaction name="actionUseOpenGL"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuOptions"/>
@@ -120,6 +121,20 @@
    </property>
    <property name="shortcut">
     <string>H</string>
+   </property>
+  </action>
+  <action name="actionUseOpenGL">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Use &amp;OpenGL</string>
+   </property>
+   <property name="shortcut">
+    <string>O</string>
    </property>
   </action>
  </widget>
@@ -213,11 +228,28 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionUseOpenGL</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>GameWindow</receiver>
+   <slot>toggleUseOpenGL(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>414</x>
+     <y>432</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>showAbout()</slot>
   <slot>showAboutQt()</slot>
   <slot>newGame()</slot>
   <slot>toggleDisplayEnemyHealthBars(bool)</slot>
+  <slot>toggleUseOpenGL(bool)</slot>
  </slots>
 </ui>

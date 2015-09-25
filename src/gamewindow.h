@@ -27,6 +27,7 @@ private slots:
     void showAbout();
     void showAboutQt();
     void toggleDisplayEnemyHealthBars(bool value);
+	void toggleUseOpenGL(bool value);
 };
 
 #endif // GAMEWINDOW_H

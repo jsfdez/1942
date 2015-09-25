@@ -88,7 +88,13 @@ void GraphicsEnemyObject::paint(QPainter *painter,
 
     if(qApp->property("displayEnemyHealthBars").toBool())
     {
-        QRectF healthBarRect(0, 0, boundingRect().width(), 3);
+		painter->save();
+		const auto sceneTopLeft = mapFromScene(0, HUD_HEIGHT);
+		const auto sceneSize = scene()->sceneRect().size().expandedTo(QSizeF(0,
+			- HUD_HEIGHT));
+		QRectF clipRect(sceneTopLeft, sceneSize);
+		painter->setClipRect(clipRect);
+		QRectF healthBarRect(0, 0, boundingRect().width(), 3);
         painter->save();
         const auto ratio = static_cast<float>(m_health) / m_maxHealth;
         QBrush brush(ratio < 0.25f ? Qt::red : Qt::green);
@@ -102,6 +108,7 @@ void GraphicsEnemyObject::paint(QPainter *painter,
         painter->setPen(pen);
         painter->drawRect(healthBarRect);
         painter->restore();
+		painter->restore();
     }
 }
 

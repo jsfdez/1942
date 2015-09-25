@@ -18,7 +18,6 @@ GameWindow::GameWindow(QWidget *parent)
     , m_ui(new Ui::GameWindow)
 {
     m_ui->setupUi(this);
-    m_ui->graphicsView->setViewport(new QOpenGLWidget(this));
 
     loadSettings();
 
@@ -33,6 +32,7 @@ GameWindow::GameWindow(QWidget *parent)
 
 GameWindow::~GameWindow()
 {
+	saveSettings();
 }
 
 void GameWindow::loadSettings()
@@ -44,6 +44,10 @@ void GameWindow::loadSettings()
     m_ui->actionDisplayEnemyHealthBars->setChecked(
         displayEnemyHealthBars.toBool());
     toggleDisplayEnemyHealthBars(displayEnemyHealthBars.toBool());
+
+	auto useOpenGL = settings.value("useOpenGL", true).toBool();
+	m_ui->actionUseOpenGL->setChecked(useOpenGL);
+	toggleUseOpenGL(useOpenGL);
 }
 
 void GameWindow::saveSettings()
@@ -52,6 +56,7 @@ void GameWindow::saveSettings()
     settings.setValue("highScore", m_highScore);
     settings.setValue("displayEnemyHealth",
         m_ui->actionDisplayEnemyHealthBars->isChecked());
+	settings.setValue("useOpenGL", m_ui->actionUseOpenGL->isChecked());
 }
 
 void GameWindow::newGame()
@@ -99,5 +104,11 @@ void GameWindow::showAboutQt()
 
 void GameWindow::toggleDisplayEnemyHealthBars(bool value)
 {
-    qApp->setProperty("displayEnemyHealthBars", value);
+	qApp->setProperty("displayEnemyHealthBars", value);
+}
+
+void GameWindow::toggleUseOpenGL(bool value)
+{
+	m_ui->graphicsView->setViewport(value ? new QOpenGLWidget(this) : nullptr);
+	qApp->setProperty("useOpenGL", value);
 }
