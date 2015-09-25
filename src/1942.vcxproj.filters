@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="abstractgraphicsplaneobject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="customeasingcurve.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gamescene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gamewindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="graphicsbackgrounditem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="graphicsbulletitem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="graphicsenemyobject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="graphicshudobject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="graphicsplayerobject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="graphicsview.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pixmapcache.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="abstractgraphicsplaneobject.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <ClInclude Include="customeasingcurve.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="defines.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <CustomBuild Include="gamescene.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="gamewindow.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <ClInclude Include="graphicsbackgrounditem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="graphicsbulletitem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <CustomBuild Include="graphicsenemyobject.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="graphicshudobject.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="graphicsplayerobject.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="graphicsview.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <ClInclude Include="pixmapcache.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include=".obj\debug\moc_abstractgraphicsplaneobject.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".obj\release\moc_abstractgraphicsplaneobject.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".obj\debug\moc_gamescene.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".obj\release\moc_gamescene.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".obj\debug\moc_gamewindow.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".obj\release\moc_gamewindow.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".obj\debug\moc_graphicsenemyobject.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".obj\release\moc_graphicsenemyobject.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".obj\debug\moc_graphicshudobject.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".obj\release\moc_graphicshudobject.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".obj\debug\moc_graphicsplayerobject.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".obj\release\moc_graphicsplayerobject.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".obj\debug\moc_graphicsview.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".obj\release\moc_graphicsview.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".obj\debug\qrc_assets.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".obj\release\qrc_assets.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClInclude Include=".obj\debug\ui_gamewindow.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include=".obj\release\ui_gamewindow.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="gamewindow.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\res\assets.qrc">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <None Include="..\res\background.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\res\boss.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\res\bullet.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\res\enemy-bullet.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\res\enemy.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\res\explosion.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\res\font.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\res\player.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\res\sea.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\res\shooting-enemy.png">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\1942.rc" />
+  </ItemGroup>
+</Project>

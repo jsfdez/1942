@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{4D725928-0FCD-3A40-A9B9-241A461BABBD}</ProjectGuid>
+    <RootNamespace>1942</RootNamespace>
+    <Keyword>Qt4VSv1.0</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;" Label="Configuration">
+    <PlatformToolSet>v120</PlatformToolSet>
+    <OutputDirectory>..\release\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>Application</ConfigurationType>
+    <IntermediateDirectory>.obj\release\</IntermediateDirectory>
+    <PrimaryOutput>1942</PrimaryOutput>
+  </PropertyGroup>
+  <PropertyGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;" Label="Configuration">
+    <PlatformToolSet>v120</PlatformToolSet>
+    <OutputDirectory>..\debug\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>Application</ConfigurationType>
+    <IntermediateDirectory>.obj\debug\</IntermediateDirectory>
+    <PrimaryOutput>1942</PrimaryOutput>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists(&apos;$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props&apos;)" />
+  </ImportGroup>
+  <ImportGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists(&apos;$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props&apos;)" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <OutDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">..\release\</OutDir>
+    <IntDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">.obj\release\</IntDir>
+    <TargetName Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">1942</TargetName>
+    <IgnoreImportLibrary Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">true</IgnoreImportLibrary>
+    <LinkIncremental Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">false</LinkIncremental>
+    <OutDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">..\debug\</OutDir>
+    <IntDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">.obj\debug\</IntDir>
+    <TargetName Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">1942</TargetName>
+    <IgnoreImportLibrary Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">true</IgnoreImportLibrary>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.;D:\Qt\5.5\msvc2013_64\include;D:\Qt\5.5\msvc2013_64\include\QtWidgets;D:\Qt\5.5\msvc2013_64\include\QtGui;D:\Qt\5.5\msvc2013_64\include\QtANGLE;D:\Qt\5.5\msvc2013_64\include\QtCore;.obj\release;.obj\release;D:\Qt\5.5\msvc2013_64\mkspecs\win32-msvc2013;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zc:strictStrings -w34100 -w34189 -w44996 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>.obj\release\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ObjectFileName>.obj\release\</ObjectFileName>
+      <Optimization>MaxSpeed</Optimization>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;WIN64;QT_NO_DEBUG;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <ProgramDataBaseFileName></ProgramDataBaseFileName>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>D:\Qt\5.5\msvc2013_64\lib\qtmain.lib;shell32.lib;D:/Qt/5.5/msvc2013_64/lib\Qt5Core.lib;D:\Qt\5.5\msvc2013_64\lib\Qt5Widgets.lib;D:\Qt\5.5\msvc2013_64\lib\Qt5Gui.lib;D:\Qt\5.5\msvc2013_64\lib\Qt5Core.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\Qt\5.5\msvc2013_64\lib;D:/Qt/5.5/msvc2013_64/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>&quot;/MANIFESTDEPENDENCY:type=&apos;win32&apos; name=&apos;Microsoft.Windows.Common-Controls&apos; version=&apos;6.0.0.0&apos; publicKeyToken=&apos;6595b64144ccf1df&apos; language=&apos;*&apos; processorArchitecture=&apos;*&apos;&quot; %(AdditionalOptions)</AdditionalOptions>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <LinkIncremental>false</LinkIncremental>
+      <OutputFile>$(OutDir)\1942.exe</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;WIN64;QT_NO_DEBUG;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.;D:\Qt\5.5\msvc2013_64\include;D:\Qt\5.5\msvc2013_64\include\QtWidgets;D:\Qt\5.5\msvc2013_64\include\QtGui;D:\Qt\5.5\msvc2013_64\include\QtANGLE;D:\Qt\5.5\msvc2013_64\include\QtCore;.obj\debug;.obj\debug;D:\Qt\5.5\msvc2013_64\mkspecs\win32-msvc2013;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-w34100 -w34189 -w44996 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>.obj\debug\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ObjectFileName>.obj\debug\</ObjectFileName>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;WIN64;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>D:\Qt\5.5\msvc2013_64\lib\qtmaind.lib;shell32.lib;D:/Qt/5.5/msvc2013_64/lib\Qt5Cored.lib;D:\Qt\5.5\msvc2013_64\lib\Qt5Widgetsd.lib;D:\Qt\5.5\msvc2013_64\lib\Qt5Guid.lib;D:\Qt\5.5\msvc2013_64\lib\Qt5Cored.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\Qt\5.5\msvc2013_64\lib;D:/Qt/5.5/msvc2013_64/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>&quot;/MANIFESTDEPENDENCY:type=&apos;win32&apos; name=&apos;Microsoft.Windows.Common-Controls&apos; version=&apos;6.0.0.0&apos; publicKeyToken=&apos;6595b64144ccf1df&apos; language=&apos;*&apos; processorArchitecture=&apos;*&apos;&quot; %(AdditionalOptions)</AdditionalOptions>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <OutputFile>$(OutDir)\1942.exe</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;WIN64;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="abstractgraphicsplaneobject.cpp" />
+    <ClCompile Include="customeasingcurve.cpp" />
+    <ClCompile Include="gamescene.cpp" />
+    <ClCompile Include="gamewindow.cpp" />
+    <ClCompile Include="graphicsbackgrounditem.cpp" />
+    <ClCompile Include="graphicsbulletitem.cpp" />
+    <ClCompile Include="graphicsenemyobject.cpp" />
+    <ClCompile Include="graphicshudobject.cpp" />
+    <ClCompile Include="graphicsplayerobject.cpp" />
+    <ClCompile Include="graphicsview.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="pixmapcache.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="abstractgraphicsplaneobject.h">
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">abstractgraphicsplaneobject.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">setlocal&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;D:\Qt\5.5\msvc2013_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -ID:/Qt/5.5/msvc2013_64/mkspecs/win32-msvc2013 -IC:/git/1942/src -ID:/Qt/5.5/msvc2013_64/include -ID:/Qt/5.5/msvc2013_64/include/QtWidgets -ID:/Qt/5.5/msvc2013_64/include/QtGui -ID:/Qt/5.5/msvc2013_64/include/QtANGLE -ID:/Qt/5.5/msvc2013_64/include/QtCore abstractgraphicsplaneobject.h -o .obj\release\moc_abstractgraphicsplaneobject.cpp&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;endlocal</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">MOC abstractgraphicsplaneobject.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">.obj\release\moc_abstractgraphicsplaneobject.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">abstractgraphicsplaneobject.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">setlocal&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;D:\Qt\5.5\msvc2013_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -ID:/Qt/5.5/msvc2013_64/mkspecs/win32-msvc2013 -IC:/git/1942/src -ID:/Qt/5.5/msvc2013_64/include -ID:/Qt/5.5/msvc2013_64/include/QtWidgets -ID:/Qt/5.5/msvc2013_64/include/QtGui -ID:/Qt/5.5/msvc2013_64/include/QtANGLE -ID:/Qt/5.5/msvc2013_64/include/QtCore abstractgraphicsplaneobject.h -o .obj\debug\moc_abstractgraphicsplaneobject.cpp&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;endlocal</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">MOC abstractgraphicsplaneobject.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">.obj\debug\moc_abstractgraphicsplaneobject.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <ClInclude Include="customeasingcurve.h" />
+    <ClInclude Include="defines.h" />
+    <CustomBuild Include="gamescene.h">
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">gamescene.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">setlocal&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;D:\Qt\5.5\msvc2013_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -ID:/Qt/5.5/msvc2013_64/mkspecs/win32-msvc2013 -IC:/git/1942/src -ID:/Qt/5.5/msvc2013_64/include -ID:/Qt/5.5/msvc2013_64/include/QtWidgets -ID:/Qt/5.5/msvc2013_64/include/QtGui -ID:/Qt/5.5/msvc2013_64/include/QtANGLE -ID:/Qt/5.5/msvc2013_64/include/QtCore gamescene.h -o .obj\release\moc_gamescene.cpp&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;endlocal</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">MOC gamescene.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">.obj\release\moc_gamescene.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">gamescene.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">setlocal&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;D:\Qt\5.5\msvc2013_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -ID:/Qt/5.5/msvc2013_64/mkspecs/win32-msvc2013 -IC:/git/1942/src -ID:/Qt/5.5/msvc2013_64/include -ID:/Qt/5.5/msvc2013_64/include/QtWidgets -ID:/Qt/5.5/msvc2013_64/include/QtGui -ID:/Qt/5.5/msvc2013_64/include/QtANGLE -ID:/Qt/5.5/msvc2013_64/include/QtCore gamescene.h -o .obj\debug\moc_gamescene.cpp&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;endlocal</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">MOC gamescene.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">.obj\debug\moc_gamescene.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="gamewindow.h">
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">gamewindow.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">setlocal&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;D:\Qt\5.5\msvc2013_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -ID:/Qt/5.5/msvc2013_64/mkspecs/win32-msvc2013 -IC:/git/1942/src -ID:/Qt/5.5/msvc2013_64/include -ID:/Qt/5.5/msvc2013_64/include/QtWidgets -ID:/Qt/5.5/msvc2013_64/include/QtGui -ID:/Qt/5.5/msvc2013_64/include/QtANGLE -ID:/Qt/5.5/msvc2013_64/include/QtCore gamewindow.h -o .obj\release\moc_gamewindow.cpp&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;endlocal</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">MOC gamewindow.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">.obj\release\moc_gamewindow.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">gamewindow.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">setlocal&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;D:\Qt\5.5\msvc2013_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -ID:/Qt/5.5/msvc2013_64/mkspecs/win32-msvc2013 -IC:/git/1942/src -ID:/Qt/5.5/msvc2013_64/include -ID:/Qt/5.5/msvc2013_64/include/QtWidgets -ID:/Qt/5.5/msvc2013_64/include/QtGui -ID:/Qt/5.5/msvc2013_64/include/QtANGLE -ID:/Qt/5.5/msvc2013_64/include/QtCore gamewindow.h -o .obj\debug\moc_gamewindow.cpp&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;endlocal</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">MOC gamewindow.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">.obj\debug\moc_gamewindow.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <ClInclude Include="graphicsbackgrounditem.h" />
+    <ClInclude Include="graphicsbulletitem.h" />
+    <CustomBuild Include="graphicsenemyobject.h">
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">graphicsenemyobject.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">setlocal&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;D:\Qt\5.5\msvc2013_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -ID:/Qt/5.5/msvc2013_64/mkspecs/win32-msvc2013 -IC:/git/1942/src -ID:/Qt/5.5/msvc2013_64/include -ID:/Qt/5.5/msvc2013_64/include/QtWidgets -ID:/Qt/5.5/msvc2013_64/include/QtGui -ID:/Qt/5.5/msvc2013_64/include/QtANGLE -ID:/Qt/5.5/msvc2013_64/include/QtCore graphicsenemyobject.h -o .obj\release\moc_graphicsenemyobject.cpp&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;endlocal</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">MOC graphicsenemyobject.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">.obj\release\moc_graphicsenemyobject.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">graphicsenemyobject.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">setlocal&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;D:\Qt\5.5\msvc2013_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -ID:/Qt/5.5/msvc2013_64/mkspecs/win32-msvc2013 -IC:/git/1942/src -ID:/Qt/5.5/msvc2013_64/include -ID:/Qt/5.5/msvc2013_64/include/QtWidgets -ID:/Qt/5.5/msvc2013_64/include/QtGui -ID:/Qt/5.5/msvc2013_64/include/QtANGLE -ID:/Qt/5.5/msvc2013_64/include/QtCore graphicsenemyobject.h -o .obj\debug\moc_graphicsenemyobject.cpp&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;endlocal</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">MOC graphicsenemyobject.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">.obj\debug\moc_graphicsenemyobject.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="graphicshudobject.h">
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">graphicshudobject.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">setlocal&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;D:\Qt\5.5\msvc2013_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -ID:/Qt/5.5/msvc2013_64/mkspecs/win32-msvc2013 -IC:/git/1942/src -ID:/Qt/5.5/msvc2013_64/include -ID:/Qt/5.5/msvc2013_64/include/QtWidgets -ID:/Qt/5.5/msvc2013_64/include/QtGui -ID:/Qt/5.5/msvc2013_64/include/QtANGLE -ID:/Qt/5.5/msvc2013_64/include/QtCore graphicshudobject.h -o .obj\release\moc_graphicshudobject.cpp&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;endlocal</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">MOC graphicshudobject.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">.obj\release\moc_graphicshudobject.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">graphicshudobject.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">setlocal&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;D:\Qt\5.5\msvc2013_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -ID:/Qt/5.5/msvc2013_64/mkspecs/win32-msvc2013 -IC:/git/1942/src -ID:/Qt/5.5/msvc2013_64/include -ID:/Qt/5.5/msvc2013_64/include/QtWidgets -ID:/Qt/5.5/msvc2013_64/include/QtGui -ID:/Qt/5.5/msvc2013_64/include/QtANGLE -ID:/Qt/5.5/msvc2013_64/include/QtCore graphicshudobject.h -o .obj\debug\moc_graphicshudobject.cpp&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;endlocal</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">MOC graphicshudobject.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">.obj\debug\moc_graphicshudobject.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="graphicsplayerobject.h">
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">graphicsplayerobject.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">setlocal&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;D:\Qt\5.5\msvc2013_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -ID:/Qt/5.5/msvc2013_64/mkspecs/win32-msvc2013 -IC:/git/1942/src -ID:/Qt/5.5/msvc2013_64/include -ID:/Qt/5.5/msvc2013_64/include/QtWidgets -ID:/Qt/5.5/msvc2013_64/include/QtGui -ID:/Qt/5.5/msvc2013_64/include/QtANGLE -ID:/Qt/5.5/msvc2013_64/include/QtCore graphicsplayerobject.h -o .obj\release\moc_graphicsplayerobject.cpp&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;endlocal</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">MOC graphicsplayerobject.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">.obj\release\moc_graphicsplayerobject.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">graphicsplayerobject.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">setlocal&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;D:\Qt\5.5\msvc2013_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -ID:/Qt/5.5/msvc2013_64/mkspecs/win32-msvc2013 -IC:/git/1942/src -ID:/Qt/5.5/msvc2013_64/include -ID:/Qt/5.5/msvc2013_64/include/QtWidgets -ID:/Qt/5.5/msvc2013_64/include/QtGui -ID:/Qt/5.5/msvc2013_64/include/QtANGLE -ID:/Qt/5.5/msvc2013_64/include/QtCore graphicsplayerobject.h -o .obj\debug\moc_graphicsplayerobject.cpp&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;endlocal</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">MOC graphicsplayerobject.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">.obj\debug\moc_graphicsplayerobject.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="graphicsview.h">
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">graphicsview.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">setlocal&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;D:\Qt\5.5\msvc2013_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -ID:/Qt/5.5/msvc2013_64/mkspecs/win32-msvc2013 -IC:/git/1942/src -ID:/Qt/5.5/msvc2013_64/include -ID:/Qt/5.5/msvc2013_64/include/QtWidgets -ID:/Qt/5.5/msvc2013_64/include/QtGui -ID:/Qt/5.5/msvc2013_64/include/QtANGLE -ID:/Qt/5.5/msvc2013_64/include/QtCore graphicsview.h -o .obj\release\moc_graphicsview.cpp&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;endlocal</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">MOC graphicsview.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">.obj\release\moc_graphicsview.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">graphicsview.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">setlocal&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;D:\Qt\5.5\msvc2013_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -ID:/Qt/5.5/msvc2013_64/mkspecs/win32-msvc2013 -IC:/git/1942/src -ID:/Qt/5.5/msvc2013_64/include -ID:/Qt/5.5/msvc2013_64/include/QtWidgets -ID:/Qt/5.5/msvc2013_64/include/QtGui -ID:/Qt/5.5/msvc2013_64/include/QtANGLE -ID:/Qt/5.5/msvc2013_64/include/QtCore graphicsview.h -o .obj\debug\moc_graphicsview.cpp&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;endlocal</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">MOC graphicsview.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">.obj\debug\moc_graphicsview.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <ClInclude Include="pixmapcache.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include=".obj\debug\moc_abstractgraphicsplaneobject.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include=".obj\release\moc_abstractgraphicsplaneobject.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include=".obj\debug\moc_gamescene.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include=".obj\release\moc_gamescene.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include=".obj\debug\moc_gamewindow.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include=".obj\release\moc_gamewindow.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include=".obj\debug\moc_graphicsenemyobject.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include=".obj\release\moc_graphicsenemyobject.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include=".obj\debug\moc_graphicshudobject.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include=".obj\release\moc_graphicshudobject.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include=".obj\debug\moc_graphicsplayerobject.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include=".obj\release\moc_graphicsplayerobject.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include=".obj\debug\moc_graphicsview.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include=".obj\release\moc_graphicsview.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include=".obj\debug\qrc_assets.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include=".obj\release\qrc_assets.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClInclude Include=".obj\debug\ui_gamewindow.h">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include=".obj\release\ui_gamewindow.h">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">true</ExcludedFromBuild>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="gamewindow.ui">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">gamewindow.ui;graphicsview.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">setlocal&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;D:\Qt\5.5\msvc2013_64\bin\uic.exe gamewindow.ui -o .obj\release\ui_gamewindow.h&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;endlocal</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">UIC gamewindow.ui</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">.obj\release\ui_gamewindow.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">gamewindow.ui;graphicsview.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">setlocal&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;D:\Qt\5.5\msvc2013_64\bin\uic.exe gamewindow.ui -o .obj\debug\ui_gamewindow.h&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;endlocal</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">UIC gamewindow.ui</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">.obj\debug\ui_gamewindow.h;%(Outputs)</Outputs>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\res\assets.qrc">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">..\res\assets.qrc;..\res\boss.png;..\res\player.png;..\res\background.png;..\res\font.png;..\res\sea.png;..\res\enemy-bullet.png;..\res\bullet.png;..\res\explosion.png;..\res\enemy.png;..\res\shooting-enemy.png;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">setlocal&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;D:\Qt\5.5\msvc2013_64\bin\rcc.exe -name assets ..\res\assets.qrc -o .obj\release\qrc_assets.cpp&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;endlocal</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">RCC ../res/assets.qrc</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">.obj\release\qrc_assets.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">..\res\assets.qrc;..\res\boss.png;..\res\player.png;..\res\background.png;..\res\font.png;..\res\sea.png;..\res\enemy-bullet.png;..\res\bullet.png;..\res\explosion.png;..\res\enemy.png;..\res\shooting-enemy.png;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">setlocal&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;D:\Qt\5.5\msvc2013_64\bin\rcc.exe -name assets ..\res\assets.qrc -o .obj\debug\qrc_assets.cpp&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;endlocal</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">RCC ../res/assets.qrc</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">.obj\debug\qrc_assets.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <None Include="..\res\background.png" />
+    <None Include="..\res\boss.png" />
+    <None Include="..\res\bullet.png" />
+    <None Include="..\res\enemy-bullet.png" />
+    <None Include="..\res\enemy.png" />
+    <None Include="..\res\explosion.png" />
+    <None Include="..\res\font.png" />
+    <None Include="..\res\player.png" />
+    <None Include="..\res\sea.png" />
+    <None Include="..\res\shooting-enemy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\1942.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>
